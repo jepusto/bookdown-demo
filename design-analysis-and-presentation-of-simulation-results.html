@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Designing Monte Carlo Simulations in R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="jepusto/Designing-Simulations-in-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Designing Monte Carlo Simulations in R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="James E. Pustejovsky">
+
+
+<meta name="date" content="2017-08-14">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="putting-the-pieces-together.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Designing Simulations in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#purpose-of-simulations"><i class="fa fa-check"></i><b>1.1</b> Purpose of simulations</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.2</b> Why R?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#functions"><i class="fa fa-check"></i><b>1.2.1</b> Functions</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#function-skeletons"><i class="fa fa-check"></i><b>1.2.2</b> Function skeletons</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i><b>1.3</b> Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html"><i class="fa fa-check"></i><b>2</b> Structure of a simulation study</a><ul>
+<li class="chapter" data-level="2.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#structure-of-a-simulation-study-1"><i class="fa fa-check"></i><b>2.1</b> Structure of a simulation study</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#experimental-design"><i class="fa fa-check"></i><b>2.1.1</b> Experimental design</a></li>
+<li class="chapter" data-level="2.1.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#data-generating-model"><i class="fa fa-check"></i><b>2.1.2</b> Data-generating model</a></li>
+<li class="chapter" data-level="2.1.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#estimation-methods"><i class="fa fa-check"></i><b>2.1.3</b> Estimation methods</a></li>
+<li class="chapter" data-level="2.1.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#performance-summaries"><i class="fa fa-check"></i><b>2.1.4</b> Performance summaries</a></li>
+<li class="chapter" data-level="2.1.5" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#results"><i class="fa fa-check"></i><b>2.1.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#modular-simulations"><i class="fa fa-check"></i><b>2.2</b> Modular simulations</a></li>
+<li class="chapter" data-level="2.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#a-first-example-heteroskedasticity-anova"><i class="fa fa-check"></i><b>2.3</b> A first example: Heteroskedasticity ANOVA</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#data-generating-model-1"><i class="fa fa-check"></i><b>2.3.1</b> Data-generating model</a></li>
+<li class="chapter" data-level="2.3.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#estimation-procedures"><i class="fa fa-check"></i><b>2.3.2</b> Estimation procedures</a></li>
+<li class="chapter" data-level="2.3.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#replicate"><i class="fa fa-check"></i><b>2.3.3</b> Replicate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#calculating-rejection-rates"><i class="fa fa-check"></i><b>2.3.4</b> Calculating rejection rates</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-generating-models.html"><a href="data-generating-models.html"><i class="fa fa-check"></i><b>3</b> Data-generating models</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-generating-models.html"><a href="data-generating-models.html#efficiency-versus-simplicity"><i class="fa fa-check"></i><b>3.1</b> Efficiency versus simplicity</a></li>
+<li class="chapter" data-level="3.2" data-path="data-generating-models.html"><a href="data-generating-models.html#checking-the-data-generating-function"><i class="fa fa-check"></i><b>3.2</b> Checking the data-generating function</a></li>
+<li class="chapter" data-level="3.3" data-path="data-generating-models.html"><a href="data-generating-models.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-generating-models.html"><a href="data-generating-models.html#shifted-and-scaled-t-distribution"><i class="fa fa-check"></i><b>3.3.1</b> Shifted-and-scaled t distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html"><i class="fa fa-check"></i><b>4</b> Estimation procedures</a><ul>
+<li class="chapter" data-level="4.1" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#efficiency-considerations"><i class="fa fa-check"></i><b>4.1</b> Efficiency considerations</a></li>
+<li class="chapter" data-level="4.2" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#checking-the-estimation-functions"><i class="fa fa-check"></i><b>4.2</b> Checking the estimation function(s)</a></li>
+<li class="chapter" data-level="4.3" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#estimation-helper-function"><i class="fa fa-check"></i><b>4.3.1</b> Estimation helper function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#the-bff-test"><i class="fa fa-check"></i><b>4.3.2</b> The BFF* test</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="performance-criteria.html"><a href="performance-criteria.html"><i class="fa fa-check"></i><b>5</b> Performance criteria</a><ul>
+<li class="chapter" data-level="5.1" data-path="performance-criteria.html"><a href="performance-criteria.html#parameter-estimation-absolute-criteria"><i class="fa fa-check"></i><b>5.1</b> Parameter estimation: absolute criteria</a></li>
+<li class="chapter" data-level="5.2" data-path="performance-criteria.html"><a href="performance-criteria.html#parameter-estimation-relative-criteria"><i class="fa fa-check"></i><b>5.2</b> Parameter estimation: relative criteria</a></li>
+<li class="chapter" data-level="5.3" data-path="performance-criteria.html"><a href="performance-criteria.html#absolute-or-relative-performance"><i class="fa fa-check"></i><b>5.3</b> Absolute or relative performance?</a></li>
+<li class="chapter" data-level="5.4" data-path="performance-criteria.html"><a href="performance-criteria.html#assessing-variance-estimators"><i class="fa fa-check"></i><b>5.4</b> Assessing variance estimators</a></li>
+<li class="chapter" data-level="5.5" data-path="performance-criteria.html"><a href="performance-criteria.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.6" data-path="performance-criteria.html"><a href="performance-criteria.html#confidence-intervals"><i class="fa fa-check"></i><b>5.6</b> Confidence intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="performance-criteria.html"><a href="performance-criteria.html#exercises-simulating-cronbachs-alpha"><i class="fa fa-check"></i><b>5.7</b> Exercises: Simulating Cronbach’s alpha</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="performance-criteria.html"><a href="performance-criteria.html#data-generating-function"><i class="fa fa-check"></i><b>5.7.1</b> data-generating function</a></li>
+<li class="chapter" data-level="5.7.2" data-path="performance-criteria.html"><a href="performance-criteria.html#estimation-function"><i class="fa fa-check"></i><b>5.7.2</b> Estimation function</a></li>
+<li class="chapter" data-level="5.7.3" data-path="performance-criteria.html"><a href="performance-criteria.html#replicates"><i class="fa fa-check"></i><b>5.7.3</b> Replicates</a></li>
+<li class="chapter" data-level="5.7.4" data-path="performance-criteria.html"><a href="performance-criteria.html#estimator-performance"><i class="fa fa-check"></i><b>5.7.4</b> Estimator performance</a></li>
+<li class="chapter" data-level="5.7.5" data-path="performance-criteria.html"><a href="performance-criteria.html#confidence-interval-coverage"><i class="fa fa-check"></i><b>5.7.5</b> Confidence interval coverage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="experimental-design-1.html"><a href="experimental-design-1.html"><i class="fa fa-check"></i><b>6</b> Experimental design</a><ul>
+<li class="chapter" data-level="6.1" data-path="experimental-design-1.html"><a href="experimental-design-1.html#choosing-parameter-combinations"><i class="fa fa-check"></i><b>6.1</b> Choosing parameter combinations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html"><i class="fa fa-check"></i><b>7</b> Putting the pieces together</a><ul>
+<li class="chapter" data-level="7.1" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#organizing-the-script-for-a-simulation-study"><i class="fa fa-check"></i><b>7.1</b> Organizing the script for a simulation study</a></li>
+<li class="chapter" data-level="7.2" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#data-generating-model-2"><i class="fa fa-check"></i><b>7.2</b> data-generating model</a></li>
+<li class="chapter" data-level="7.3" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#estimation-procedures-2"><i class="fa fa-check"></i><b>7.3</b> estimation procedures</a></li>
+<li class="chapter" data-level="7.4" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#performance-calculations"><i class="fa fa-check"></i><b>7.4</b> Performance calculations</a></li>
+<li class="chapter" data-level="7.5" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#simulation-driver"><i class="fa fa-check"></i><b>7.5</b> Simulation driver</a></li>
+<li class="chapter" data-level="7.6" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#experimental-design-2"><i class="fa fa-check"></i><b>7.6</b> Experimental design</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#putting-it-all-together"><i class="fa fa-check"></i><b>7.7</b> Putting it all together</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#mdply-workflow"><i class="fa fa-check"></i><b>7.7.1</b> <code>mdply</code> workflow</a></li>
+<li class="chapter" data-level="7.7.2" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#purrrlyr-workflow"><i class="fa fa-check"></i><b>7.7.2</b> <code>purrrlyr</code> workflow</a></li>
+<li class="chapter" data-level="7.7.3" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#parallel-processing"><i class="fa fa-check"></i><b>7.7.3</b> parallel processing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html"><i class="fa fa-check"></i><b>8</b> Design, analysis, and presentation of simulation results</a><ul>
+<li class="chapter" data-level="8.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#designing-the-simulation-experiment"><i class="fa fa-check"></i><b>8.1</b> Designing the simulation experiment</a></li>
+<li class="chapter" data-level="8.2" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#choosing-parameter-levels"><i class="fa fa-check"></i><b>8.2</b> Choosing parameter levels</a></li>
+<li class="chapter" data-level="8.3" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#presentation"><i class="fa fa-check"></i><b>8.3</b> Presentation</a></li>
+<li class="chapter" data-level="8.4" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#tabulation"><i class="fa fa-check"></i><b>8.4</b> Tabulation</a></li>
+<li class="chapter" data-level="8.5" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#visualization"><i class="fa fa-check"></i><b>8.5</b> Visualization</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-1"><i class="fa fa-check"></i><b>8.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="8.5.2" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-2"><i class="fa fa-check"></i><b>8.5.2</b> Example 2</a></li>
+<li class="chapter" data-level="8.5.3" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-3-pustejovsky-swan-2014"><i class="fa fa-check"></i><b>8.5.3</b> Example 3 (Pustejovsky &amp; Swan, 2014)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#modeling"><i class="fa fa-check"></i><b>8.6</b> Modeling</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-1-1"><i class="fa fa-check"></i><b>8.6.1</b> Example 1</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#presentation-1"><i class="fa fa-check"></i><b>8.7</b> Presentation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Designing Monte Carlo Simulations in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="design-analysis-and-presentation-of-simulation-results" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Design, analysis, and presentation of simulation results</h1>
+<div id="designing-the-simulation-experiment" class="section level2">
+<h2><span class="header-section-number">8.1</span> Designing the simulation experiment</h2>
+<ul>
+<li>The primary limitation of simulation studies is <strong>generalizability</strong>.</li>
+<li>Choose conditions that allow you to relate findings to previous work.</li>
+<li>Err towards being comprehensive.
+<ul>
+<li>The goal should be to build an understanding of the major moving parts.</li>
+<li>Presentation of results can always be tailored to illustrate trends.</li>
+</ul></li>
+<li>Explore breakdown points (e.g., what sample size is too small for applying a given method?).</li>
+</ul>
+</div>
+<div id="choosing-parameter-levels" class="section level2">
+<h2><span class="header-section-number">8.2</span> Choosing parameter levels</h2>
+<p>Four possible strategies:</p>
+<ol style="list-style-type: decimal">
+<li>Vary a parameter over its entire range (or nearly so).</li>
+<li>Choose parameter levels to represent realistic practical range.
+<ul>
+<li>Empirical justification based on systematic reviews of applications</li>
+<li>Or at least informal impressions of what’s realistic in practice</li>
+</ul></li>
+<li>Vary nuisance parameters (at least a little) to test sensitivity of results.</li>
+<li>Choose parameters to emulate one important application.</li>
+</ol>
+</div>
+<div id="presentation" class="section level2">
+<h2><span class="header-section-number">8.3</span> Presentation</h2>
+<p>Your results have finished running…what now?</p>
+<ul>
+<li>Understand the effects of all of the factors manipulated in the simulation</li>
+<li>Develop evidence that addresses your research questions</li>
+</ul>
+<p>Three approaches to analysis and presentation:</p>
+<ol style="list-style-type: decimal">
+<li>Tabulation</li>
+<li>Visualization</li>
+<li>Modeling</li>
+</ol>
+</div>
+<div id="tabulation" class="section level2">
+<h2><span class="header-section-number">8.4</span> Tabulation</h2>
+<ul>
+<li>Traditionally, simulation study results are presented in big tables. Tables are fine if…
+<ul>
+<li>they involve only a few numbers, and a few targeted comparisons</li>
+<li>it is important to report <em>exact</em> values for some quantities</li>
+</ul></li>
+<li>But simulations usually produce lots of numbers, and involve making lots of comparisons.
+<ul>
+<li>relative performance of alternative estimators</li>
+<li>performance under different conditions for the data-generating model</li>
+</ul></li>
+<li><p>Exact values for bias/RMSE/type-I error are not usually of interest.</p></li>
+<li><p>It is often more useful and insightful to present results in graphs (Gelman, Pasarica, &amp; Dodhia, 2002).</p></li>
+</ul>
+</div>
+<div id="visualization" class="section level2">
+<h2><span class="header-section-number">8.5</span> Visualization</h2>
+<p>Visualization should nearly always be the first step in analyzing simulation results.</p>
+<p>This often requires creating a <em>BUNCH</em> of graphs to look at different aspects of the data.</p>
+<p>Helpful tools/concepts:</p>
+<ul>
+<li>Boxplots are often useful for depicting range and central tendency across many combinations of parameter values.</li>
+<li>Color, shape, line type to encode different factors</li>
+<li>Small multiples (faceting) to encode further factors (e.g., varying sample size)</li>
+</ul>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">8.5.1</span> Example 1</h3>
+<ul>
+<li>Bias of biserial correlation estimate from an extreme groups design</li>
+<li><span class="math inline">\(96 \times 2 \times 5 \times 5\)</span> factorial design (true correlation, cut-off type, cut-off percentile, sample size)</li>
+</ul>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-84-1.png" width="960" /></p>
+<p>Source: Pustejovsky, J. E. (2014). Converting from d to r to z when the design uses extreme groups, dichotomization, or experimental control. Psychological Methods, 19(1), 92-112.</p>
+</div>
+<div id="example-2" class="section level3">
+<h3><span class="header-section-number">8.5.2</span> Example 2</h3>
+<ul>
+<li>Type-I error rates of small-sample corrected F-tests based on cluster-robust variance estimation in meta-regression</li>
+<li>Comparison of 5 different small-sample corrections</li>
+<li>Complex experimental design, varying
+<ul>
+<li>sample size (<span class="math inline">\(m\)</span>)</li>
+<li>dimension of hypothesis (<span class="math inline">\(q\)</span>)</li>
+<li>covariates tested</li>
+<li>degree of model mis-specification</li>
+</ul></li>
+</ul>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-85-1.png" width="864" /></p>
+<p>Source: Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-sample adjustments for tests of moderators and model fit using robust variance estimation in meta-regression. <em>Journal of Educational and Behavioral Statistics, 40</em>(6), 604-634.</p>
+</div>
+<div id="example-3-pustejovsky-swan-2014" class="section level3">
+<h3><span class="header-section-number">8.5.3</span> Example 3 (Pustejovsky &amp; Swan, 2014)</h3>
+<ul>
+<li>Coverage of parametric bootstrap confidence intervals for momentary time sampling data</li>
+<li>Compare maximum likelihood estimators to posterior mode (penalized likelihood) estimators of prevalence</li>
+<li>2-dimensional parameter space:
+<ul>
+<li>prevalence (19 levels)</li>
+<li>incidence (10 levels)</li>
+</ul></li>
+<li>Sample size (15 levels)</li>
+</ul>
+<p>Source: Pustejovsky, J. E., &amp; Swan, D. M. (2015). Four methods for analyzing partial interval recording data, with application to single-case research. <em>Multivariate Behavioral Research, 50</em>(3), 365-380.</p>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-86-1.png" width="960" /></p>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-87-1.png" width="960" /></p>
+</div>
+</div>
+<div id="modeling" class="section level2">
+<h2><span class="header-section-number">8.6</span> Modeling</h2>
+<p>Simulations are designed experiments, often with a full factorial structure</p>
+<p>Helpful tools:</p>
+<blockquote>
+<ul>
+<li>ANOVA can be useful for understanding major sources of variation in simulation results (e.g., identifying which factors have negligible/minor influence on the bias of an estimator).</li>
+<li>Smoothing (e.g., local linear regression) over continuous factors</li>
+</ul>
+</blockquote>
+<div id="example-1-1" class="section level3">
+<h3><span class="header-section-number">8.6.1</span> Example 1</h3>
+<ul>
+<li>Bias of biserial correlation estimate from an extreme groups design</li>
+<li><span class="math inline">\(96 \times 2 \times 5 \times 5\)</span> factorial design (true correlation, cut-off type, cut-off percentile, sample size)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anova_table &lt;-<span class="st"> </span><span class="kw">aov</span>(bias <span class="op">~</span><span class="st"> </span>rho <span class="op">*</span><span class="st"> </span>p1 <span class="op">*</span><span class="st"> </span>fixed <span class="op">*</span><span class="st"> </span>n, <span class="dt">data =</span> r_F)
+<span class="kw">summary</span>(anova_table)</code></pre></div>
+<pre><code>##                  Df   Sum Sq  Mean Sq  F value Pr(&gt;F)    
+## rho               1 0.002444 0.002444  1673.25 &lt;2e-16 ***
+## p1                4 0.023588 0.005897  4036.41 &lt;2e-16 ***
+## fixed             1 0.015858 0.015858 10854.52 &lt;2e-16 ***
+## n                 4 0.013760 0.003440  2354.60 &lt;2e-16 ***
+## rho:p1            4 0.001722 0.000431   294.71 &lt;2e-16 ***
+## rho:fixed         1 0.003440 0.003440  2354.69 &lt;2e-16 ***
+## p1:fixed          4 0.001683 0.000421   287.98 &lt;2e-16 ***
+## rho:n             4 0.002000 0.000500   342.31 &lt;2e-16 ***
+## p1:n             16 0.019810 0.001238   847.51 &lt;2e-16 ***
+## fixed:n           4 0.013359 0.003340  2285.97 &lt;2e-16 ***
+## rho:p1:fixed      4 0.000473 0.000118    80.87 &lt;2e-16 ***
+## rho:p1:n         16 0.001470 0.000092    62.91 &lt;2e-16 ***
+## rho:fixed:n       4 0.002929 0.000732   501.23 &lt;2e-16 ***
+## p1:fixed:n       16 0.001429 0.000089    61.12 &lt;2e-16 ***
+## rho:p1:fixed:n   16 0.000429 0.000027    18.36 &lt;2e-16 ***
+## Residuals      4700 0.006866 0.000001                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lsr)
+<span class="co"># etaSquared(anova_table)</span></code></pre></div>
+</div>
+</div>
+<div id="presentation-1" class="section level2">
+<h2><span class="header-section-number">8.7</span> Presentation</h2>
+<ul>
+<li>Present selected results that clearly illustrate the main findings from the study and anything unusual/anomolous.</li>
+<li>In the text of your write-up, include examples that make specific numerical comparisons.</li>
+<li>Include supplementary materials containing
+<ul>
+<li>additional figures and analysis</li>
+<li>complete simulation results</li>
+<li>reproducible code for running the simulation and doing the analysis</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="putting-the-pieces-together.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-Design-analysis-presentation.Rmd",
+"text": "Edit"
+},
+"download": ["Designing-Simulations-in-R.pdf", "Designing-Simulations-in-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

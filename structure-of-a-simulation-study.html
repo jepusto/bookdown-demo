@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Designing Monte Carlo Simulations in R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="jepusto/Designing-Simulations-in-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Designing Monte Carlo Simulations in R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="James E. Pustejovsky">
+
+
+<meta name="date" content="2017-08-14">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="data-generating-models.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Designing Simulations in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#purpose-of-simulations"><i class="fa fa-check"></i><b>1.1</b> Purpose of simulations</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.2</b> Why R?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#functions"><i class="fa fa-check"></i><b>1.2.1</b> Functions</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#function-skeletons"><i class="fa fa-check"></i><b>1.2.2</b> Function skeletons</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i><b>1.3</b> Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html"><i class="fa fa-check"></i><b>2</b> Structure of a simulation study</a><ul>
+<li class="chapter" data-level="2.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#structure-of-a-simulation-study-1"><i class="fa fa-check"></i><b>2.1</b> Structure of a simulation study</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#experimental-design"><i class="fa fa-check"></i><b>2.1.1</b> Experimental design</a></li>
+<li class="chapter" data-level="2.1.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#data-generating-model"><i class="fa fa-check"></i><b>2.1.2</b> Data-generating model</a></li>
+<li class="chapter" data-level="2.1.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#estimation-methods"><i class="fa fa-check"></i><b>2.1.3</b> Estimation methods</a></li>
+<li class="chapter" data-level="2.1.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#performance-summaries"><i class="fa fa-check"></i><b>2.1.4</b> Performance summaries</a></li>
+<li class="chapter" data-level="2.1.5" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#results"><i class="fa fa-check"></i><b>2.1.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#modular-simulations"><i class="fa fa-check"></i><b>2.2</b> Modular simulations</a></li>
+<li class="chapter" data-level="2.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#a-first-example-heteroskedasticity-anova"><i class="fa fa-check"></i><b>2.3</b> A first example: Heteroskedasticity ANOVA</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#data-generating-model-1"><i class="fa fa-check"></i><b>2.3.1</b> Data-generating model</a></li>
+<li class="chapter" data-level="2.3.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#estimation-procedures"><i class="fa fa-check"></i><b>2.3.2</b> Estimation procedures</a></li>
+<li class="chapter" data-level="2.3.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#replicate"><i class="fa fa-check"></i><b>2.3.3</b> Replicate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#calculating-rejection-rates"><i class="fa fa-check"></i><b>2.3.4</b> Calculating rejection rates</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-generating-models.html"><a href="data-generating-models.html"><i class="fa fa-check"></i><b>3</b> Data-generating models</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-generating-models.html"><a href="data-generating-models.html#efficiency-versus-simplicity"><i class="fa fa-check"></i><b>3.1</b> Efficiency versus simplicity</a></li>
+<li class="chapter" data-level="3.2" data-path="data-generating-models.html"><a href="data-generating-models.html#checking-the-data-generating-function"><i class="fa fa-check"></i><b>3.2</b> Checking the data-generating function</a></li>
+<li class="chapter" data-level="3.3" data-path="data-generating-models.html"><a href="data-generating-models.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-generating-models.html"><a href="data-generating-models.html#shifted-and-scaled-t-distribution"><i class="fa fa-check"></i><b>3.3.1</b> Shifted-and-scaled t distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html"><i class="fa fa-check"></i><b>4</b> Estimation procedures</a><ul>
+<li class="chapter" data-level="4.1" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#efficiency-considerations"><i class="fa fa-check"></i><b>4.1</b> Efficiency considerations</a></li>
+<li class="chapter" data-level="4.2" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#checking-the-estimation-functions"><i class="fa fa-check"></i><b>4.2</b> Checking the estimation function(s)</a></li>
+<li class="chapter" data-level="4.3" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#estimation-helper-function"><i class="fa fa-check"></i><b>4.3.1</b> Estimation helper function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#the-bff-test"><i class="fa fa-check"></i><b>4.3.2</b> The BFF* test</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="performance-criteria.html"><a href="performance-criteria.html"><i class="fa fa-check"></i><b>5</b> Performance criteria</a><ul>
+<li class="chapter" data-level="5.1" data-path="performance-criteria.html"><a href="performance-criteria.html#parameter-estimation-absolute-criteria"><i class="fa fa-check"></i><b>5.1</b> Parameter estimation: absolute criteria</a></li>
+<li class="chapter" data-level="5.2" data-path="performance-criteria.html"><a href="performance-criteria.html#parameter-estimation-relative-criteria"><i class="fa fa-check"></i><b>5.2</b> Parameter estimation: relative criteria</a></li>
+<li class="chapter" data-level="5.3" data-path="performance-criteria.html"><a href="performance-criteria.html#absolute-or-relative-performance"><i class="fa fa-check"></i><b>5.3</b> Absolute or relative performance?</a></li>
+<li class="chapter" data-level="5.4" data-path="performance-criteria.html"><a href="performance-criteria.html#assessing-variance-estimators"><i class="fa fa-check"></i><b>5.4</b> Assessing variance estimators</a></li>
+<li class="chapter" data-level="5.5" data-path="performance-criteria.html"><a href="performance-criteria.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.6" data-path="performance-criteria.html"><a href="performance-criteria.html#confidence-intervals"><i class="fa fa-check"></i><b>5.6</b> Confidence intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="performance-criteria.html"><a href="performance-criteria.html#exercises-simulating-cronbachs-alpha"><i class="fa fa-check"></i><b>5.7</b> Exercises: Simulating Cronbach’s alpha</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="performance-criteria.html"><a href="performance-criteria.html#data-generating-function"><i class="fa fa-check"></i><b>5.7.1</b> data-generating function</a></li>
+<li class="chapter" data-level="5.7.2" data-path="performance-criteria.html"><a href="performance-criteria.html#estimation-function"><i class="fa fa-check"></i><b>5.7.2</b> Estimation function</a></li>
+<li class="chapter" data-level="5.7.3" data-path="performance-criteria.html"><a href="performance-criteria.html#replicates"><i class="fa fa-check"></i><b>5.7.3</b> Replicates</a></li>
+<li class="chapter" data-level="5.7.4" data-path="performance-criteria.html"><a href="performance-criteria.html#estimator-performance"><i class="fa fa-check"></i><b>5.7.4</b> Estimator performance</a></li>
+<li class="chapter" data-level="5.7.5" data-path="performance-criteria.html"><a href="performance-criteria.html#confidence-interval-coverage"><i class="fa fa-check"></i><b>5.7.5</b> Confidence interval coverage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="experimental-design-1.html"><a href="experimental-design-1.html"><i class="fa fa-check"></i><b>6</b> Experimental design</a><ul>
+<li class="chapter" data-level="6.1" data-path="experimental-design-1.html"><a href="experimental-design-1.html#choosing-parameter-combinations"><i class="fa fa-check"></i><b>6.1</b> Choosing parameter combinations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html"><i class="fa fa-check"></i><b>7</b> Putting the pieces together</a><ul>
+<li class="chapter" data-level="7.1" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#organizing-the-script-for-a-simulation-study"><i class="fa fa-check"></i><b>7.1</b> Organizing the script for a simulation study</a></li>
+<li class="chapter" data-level="7.2" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#data-generating-model-2"><i class="fa fa-check"></i><b>7.2</b> data-generating model</a></li>
+<li class="chapter" data-level="7.3" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#estimation-procedures-2"><i class="fa fa-check"></i><b>7.3</b> estimation procedures</a></li>
+<li class="chapter" data-level="7.4" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#performance-calculations"><i class="fa fa-check"></i><b>7.4</b> Performance calculations</a></li>
+<li class="chapter" data-level="7.5" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#simulation-driver"><i class="fa fa-check"></i><b>7.5</b> Simulation driver</a></li>
+<li class="chapter" data-level="7.6" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#experimental-design-2"><i class="fa fa-check"></i><b>7.6</b> Experimental design</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#putting-it-all-together"><i class="fa fa-check"></i><b>7.7</b> Putting it all together</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#mdply-workflow"><i class="fa fa-check"></i><b>7.7.1</b> <code>mdply</code> workflow</a></li>
+<li class="chapter" data-level="7.7.2" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#purrrlyr-workflow"><i class="fa fa-check"></i><b>7.7.2</b> <code>purrrlyr</code> workflow</a></li>
+<li class="chapter" data-level="7.7.3" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#parallel-processing"><i class="fa fa-check"></i><b>7.7.3</b> parallel processing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html"><i class="fa fa-check"></i><b>8</b> Design, analysis, and presentation of simulation results</a><ul>
+<li class="chapter" data-level="8.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#designing-the-simulation-experiment"><i class="fa fa-check"></i><b>8.1</b> Designing the simulation experiment</a></li>
+<li class="chapter" data-level="8.2" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#choosing-parameter-levels"><i class="fa fa-check"></i><b>8.2</b> Choosing parameter levels</a></li>
+<li class="chapter" data-level="8.3" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#presentation"><i class="fa fa-check"></i><b>8.3</b> Presentation</a></li>
+<li class="chapter" data-level="8.4" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#tabulation"><i class="fa fa-check"></i><b>8.4</b> Tabulation</a></li>
+<li class="chapter" data-level="8.5" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#visualization"><i class="fa fa-check"></i><b>8.5</b> Visualization</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-1"><i class="fa fa-check"></i><b>8.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="8.5.2" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-2"><i class="fa fa-check"></i><b>8.5.2</b> Example 2</a></li>
+<li class="chapter" data-level="8.5.3" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-3-pustejovsky-swan-2014"><i class="fa fa-check"></i><b>8.5.3</b> Example 3 (Pustejovsky &amp; Swan, 2014)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#modeling"><i class="fa fa-check"></i><b>8.6</b> Modeling</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-1-1"><i class="fa fa-check"></i><b>8.6.1</b> Example 1</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#presentation-1"><i class="fa fa-check"></i><b>8.7</b> Presentation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Designing Monte Carlo Simulations in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="structure-of-a-simulation-study" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Structure of a simulation study</h1>
+<div id="structure-of-a-simulation-study-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Structure of a simulation study</h2>
+<p>We can think of simulation studies as involving five distinct pieces, as illustrated in the diagram below.</p>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-2-1.png" width="768" /></p>
+<div id="experimental-design" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Experimental design</h3>
+<p>Simulation studies closely resemble designed experiments, in which factors such as sample size and true parameter values are systematically varied. Typically, simulation studies follow a <strong>full factorial design</strong>, in which each level of a factor is crossed with every other level. (We will look further at this aspect of simulation design in a later class.) The experimental design consists of sets of parameter values (including design parameters, such as sample sizes) that will be considered in the study.</p>
+</div>
+<div id="data-generating-model" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Data-generating model</h3>
+<p>The data-generating model takes a set of parameter values as input and generates a set of simulated data as output.</p>
+</div>
+<div id="estimation-methods" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Estimation methods</h3>
+<p>The estimation methods consist of the set of statistical procedures under examination. Each method takes a simulated dataset and produces a set of estimates or results (i.e., point estimates, standard errors, confidence intervals, p-values, etc.).</p>
+</div>
+<div id="performance-summaries" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Performance summaries</h3>
+<p>Performance summaries are the metrics used to assess the performance of a statistical method. Interest usually centers on understanding the performance of a method over repeated samples from a data-generating process. Thus, we will need to repeat steps 2 and 3 many times to get a large number of simulated estimates. We then <em>summarize the distribution</em> of the estimates to characterize performance of a method.</p>
+</div>
+<div id="results" class="section level3">
+<h3><span class="header-section-number">2.1.5</span> Results</h3>
+<p>Simulation results consist of sets of performance metrics for every combination of parameter values in the experimental design. Thus, steps 2 through 4 will need to get repeated a bunch.</p>
+</div>
+</div>
+<div id="modular-simulations" class="section level2">
+<h2><span class="header-section-number">2.2</span> Modular simulations</h2>
+<p>In writing R code to implement all these calculations, we will follow a <strong>modular approach</strong>, in which each component of the simulation is implemented <em>as a separate function</em> (or potentially a set of several functions). Writing separate functions for the different components of the simulation will make the code easier to read, test, and debug. Furthermore, it makes it possible to swap components of the simulation in or out, such as by adding additional estimation methods or trying out a data-generating model that involves different distributional assumptions.</p>
+</div>
+<div id="a-first-example-heteroskedasticity-anova" class="section level2">
+<h2><span class="header-section-number">2.3</span> A first example: Heteroskedasticity ANOVA</h2>
+<p>To illustrate the process of programming a simulation, let’s look at the simulations from Brown and Forsythe (1974). These authors study methods for testing hypotheses in the following model. Consider a population consisting of <span class="math inline">\(g\)</span> separate groups, with population means <span class="math inline">\(\mu_1,...,\mu_g\)</span> and population variances <span class="math inline">\(\sigma_1^2,...,\sigma_g^2\)</span> for some characteristic <span class="math inline">\(X\)</span>. We obtain samples of size <span class="math inline">\(n_1,...,n_g\)</span> from each of the groups, and take measurements of the characteristic for each unit in each group. Let <span class="math inline">\(x_{ij}\)</span> denote the measurement from unit <span class="math inline">\(j\)</span> in group <span class="math inline">\(i\)</span>, for <span class="math inline">\(i = 1,...,g\)</span> and <span class="math inline">\(j = 1,...,n_i\)</span>. Our goal is to use the sample data to test the hypothesis that the population means are all equal, i.e., <span class="math display">\[
+H_0: \mu_1 = \mu_2 = \cdots = \mu_g.
+\]</span> Note that if the population variances were all equal (i.e., <span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \cdots = \sigma_g^2\)</span>), we could use a conventional one-way analysis of variance to test the hypothesis. However, one-way ANOVA might not work well if the variances are not equal.</p>
+<p>Brown and Forsythe evaluated two different hypothesis testing procedures, developed by James (1951) and Welch (1951), that had been proposed for testing this hypothesis without assuming equality of variances, as well as the conventional one-way ANOVA F-test as a benchmark. They also proposed and evaluated a new procedure of their own devising. The simulation involves comparing the performance of these different hypothesis testing procedures under a range of conditions.</p>
+<p>The main performance metrics of interest were the type-I error rate (i.e., when the null hypothesis is true, how often does each test falsely reject the null?) and power (how often does the test correctly reject the null when it is indeed false?) of each test, for nominal <span class="math inline">\(\alpha\)</span>-levels of 1%, 5%, and 10%. Table 1 of the paper reports the simulation results for type-I error (labeled as “size”); ideally, a test should have true type-I error very close to the nominal <span class="math inline">\(\alpha\)</span>. Table 2 reports results on power; it is desirable to have higher power to reject null hypotheses that are false, so higher rates are better here.</p>
+<div id="data-generating-model-1" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Data-generating model</h3>
+<p>In the heteroskedastic one-way ANOVA simulation, there are three sets of parameter values: population means, population variances, and sample sizes. Rather than attempting to write a data-generating function immediately, it is often easier to write code for a specific case first. For example, say that we have four groups with means of 1, 2, 5, 6; variances of 3, 2, 5, 1; and sample sizes of 3, 6, 2, and 4:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>)
+sigma_sq &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>)
+sample_size &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">4</span>)</code></pre></div>
+<p>Following Brown and Forsythe, we’ll assume that the measurements are normally distributed within each sub-group of the population. The following code generates a vector of group id’s and a vector of simulated measurements:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N &lt;-<span class="st"> </span><span class="kw">sum</span>(sample_size) <span class="co"># total sample size</span>
+g &lt;-<span class="st"> </span><span class="kw">length</span>(sample_size) <span class="co"># number of groups</span>
+
+group &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>g, <span class="dt">times =</span> sample_size) <span class="co"># group id</span>
+mu_long &lt;-<span class="st"> </span><span class="kw">rep</span>(mu, <span class="dt">times =</span> sample_size) <span class="co"># mean for each unit of the sample</span>
+sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">sqrt</span>(sigma_sq), <span class="dt">times =</span> sample_size) <span class="co"># sd for each unit of the sample</span>
+<span class="kw">cbind</span>(group, mu_long, sigma_long)</code></pre></div>
+<pre><code>##       group mu_long sigma_long
+##  [1,]     1       1   1.732051
+##  [2,]     1       1   1.732051
+##  [3,]     1       1   1.732051
+##  [4,]     2       2   1.414214
+##  [5,]     2       2   1.414214
+##  [6,]     2       2   1.414214
+##  [7,]     2       2   1.414214
+##  [8,]     2       2   1.414214
+##  [9,]     2       2   1.414214
+## [10,]     3       5   2.236068
+## [11,]     3       5   2.236068
+## [12,]     4       6   1.000000
+## [13,]     4       6   1.000000
+## [14,]     4       6   1.000000
+## [15,]     4       6   1.000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dt">mean =</span> mu_long, <span class="dt">sd =</span> sigma_long)
+<span class="kw">data.frame</span>(<span class="dt">group =</span> group, <span class="dt">x =</span> x)</code></pre></div>
+<pre><code>##    group         x
+## 1      1 1.4569509
+## 2      1 1.8657055
+## 3      1 6.1127756
+## 4      2 3.5155790
+## 5      2 0.5518942
+## 6      2 1.2912097
+## 7      2 3.9899722
+## 8      2 1.2078286
+## 9      2 0.9297065
+## 10     3 3.8267430
+## 11     3 7.6545071
+## 12     4 6.2541702
+## 13     4 6.2357265
+## 14     4 5.2957663
+## 15     4 4.1019719</code></pre>
+<p>Now wrap this code in a function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">generate_data &lt;-<span class="st"> </span><span class="cf">function</span>(mu, sigma_sq, sample_size) {
+
+  N &lt;-<span class="st"> </span><span class="kw">sum</span>(sample_size) 
+  g &lt;-<span class="st"> </span><span class="kw">length</span>(sample_size) 
+  
+  group &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>g, <span class="dt">times =</span> sample_size) 
+  mu_long &lt;-<span class="st"> </span><span class="kw">rep</span>(mu, <span class="dt">times =</span> sample_size)
+  sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">sqrt</span>(sigma_sq), <span class="dt">times =</span> sample_size) 
+  
+  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dt">mean =</span> mu_long, <span class="dt">sd =</span> sigma_long)
+  sim_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> group, <span class="dt">x =</span> x)
+    
+  <span class="kw">return</span>(sim_data)
+}
+
+<span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size)</code></pre></div>
+<pre><code>##    group          x
+## 1      1 0.65565606
+## 2      1 2.23666489
+## 3      1 0.70417639
+## 4      2 3.48320606
+## 5      2 0.02547002
+## 6      2 1.49174544
+## 7      2 1.89224628
+## 8      2 3.22003988
+## 9      2 3.77830719
+## 10     3 3.78515727
+## 11     3 4.86079682
+## 12     4 6.26425555
+## 13     4 6.00298315
+## 14     4 4.75793372
+## 15     4 4.82867843</code></pre>
+<p>Re-run the function and we get a new set of simulated data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size)</code></pre></div>
+<pre><code>##    group           x
+## 1      1  0.06119595
+## 2      1 -0.03831476
+## 3      1 -0.39663967
+## 4      2  4.33522948
+## 5      2  3.94349778
+## 6      2  0.63092115
+## 7      2  1.35245824
+## 8      2  5.55185218
+## 9      2  0.25688449
+## 10     3  5.89729532
+## 11     3  5.90541772
+## 12     4  5.02206136
+## 13     4  6.65838548
+## 14     4  6.66282749
+## 15     4  5.46507690</code></pre>
+</div>
+<div id="estimation-procedures" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Estimation procedures</h3>
+<p>Brown and Forsythe considered four different hypothesis testing procedures for heteroskedastic ANOVA. For starters, let’s look at the simplest one, which is just to use a conventional one-way ANOVA (while mistakenly assuming homoskedasticity). The <code>oneway.test</code> function will calculate this test automatically:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size)
+<span class="kw">oneway.test</span>(x <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(group), <span class="dt">data =</span> sim_data, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+##  One-way analysis of means
+## 
+## data:  x and factor(group)
+## F = 8.2269, num df = 3, denom df = 11, p-value = 0.00375</code></pre>
+<p>The main result we need here is the p-value, which will let us assess the test’s Type-I error and power for a given nominal <span class="math inline">\(\alpha\)</span>-level. The following function takes simulated data as input and returns as output the p-value from a one-way ANOVA:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANOVA_F_aov &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
+  oneway_anova &lt;-<span class="st"> </span><span class="kw">oneway.test</span>(x <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(group), <span class="dt">data =</span> sim_data, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)
+  <span class="kw">return</span>(oneway_anova<span class="op">$</span>p.value)
+}
+
+<span class="kw">ANOVA_F_aov</span>(sim_data)</code></pre></div>
+<pre><code>## [1] 0.003750123</code></pre>
+<p>An alternative approach would be to program the ANOVA F statistic and test directly. Following the formulas on p. 129 of Brown and Forsythe (1974):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANOVA_F_direct &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
+  
+  x_bar &lt;-<span class="st"> </span><span class="kw">with</span>(sim_data, <span class="kw">tapply</span>(x, group, mean))
+  s_sq &lt;-<span class="st"> </span><span class="kw">with</span>(sim_data, <span class="kw">tapply</span>(x, group, var))
+  n &lt;-<span class="st"> </span><span class="kw">table</span>(sim_data<span class="op">$</span>group)
+  g &lt;-<span class="st"> </span><span class="kw">length</span>(x_bar)
+  
+  df1 &lt;-<span class="st"> </span>g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+  df2 &lt;-<span class="st"> </span><span class="kw">sum</span>(n) <span class="op">-</span><span class="st"> </span>g
+  
+  msbtw &lt;-<span class="st"> </span><span class="kw">sum</span>(n <span class="op">*</span><span class="st"> </span>(x_bar <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(sim_data<span class="op">$</span>x))<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>df1
+  mswn &lt;-<span class="st"> </span><span class="kw">sum</span>((n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>s_sq) <span class="op">/</span><span class="st"> </span>df2
+  fstat &lt;-<span class="st"> </span>msbtw <span class="op">/</span><span class="st"> </span>mswn
+  pval &lt;-<span class="st"> </span><span class="kw">pf</span>(fstat, df1, df2, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)
+ 
+  <span class="kw">return</span>(pval)
+}
+
+<span class="kw">ANOVA_F_direct</span>(sim_data)</code></pre></div>
+<pre><code>## [1] 0.003750123</code></pre>
+<p>This approach takes more work to program, but will end up being quicker to compute.</p>
+<p>Now let’s consider another one of the tests considered by Brown and Forsythe. Here is a function that calculates the Welch test, again following the notation and formulas from the paper:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Welch_F &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
+   
+  x_bar &lt;-<span class="st"> </span><span class="kw">with</span>(sim_data, <span class="kw">tapply</span>(x, group, mean))
+  s_sq &lt;-<span class="st"> </span><span class="kw">with</span>(sim_data, <span class="kw">tapply</span>(x, group, var))
+  n &lt;-<span class="st"> </span><span class="kw">table</span>(sim_data<span class="op">$</span>group)
+  g &lt;-<span class="st"> </span><span class="kw">length</span>(x_bar)
+
+  w &lt;-<span class="st"> </span>n <span class="op">/</span><span class="st"> </span>s_sq
+  u &lt;-<span class="st"> </span><span class="kw">sum</span>(w)
+  x_tilde &lt;-<span class="st"> </span><span class="kw">sum</span>(w <span class="op">*</span><span class="st"> </span>x_bar) <span class="op">/</span><span class="st"> </span>u
+  msbtw &lt;-<span class="st"> </span><span class="kw">sum</span>(w <span class="op">*</span><span class="st"> </span>(x_bar <span class="op">-</span><span class="st"> </span>x_tilde)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+
+  G &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>w <span class="op">/</span><span class="st"> </span>u)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+  denom &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st">  </span>G <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(g <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(g<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+  W &lt;-<span class="st"> </span>msbtw <span class="op">/</span><span class="st"> </span>denom
+  f &lt;-<span class="st"> </span>(g<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>G)
+
+  pval &lt;-<span class="st"> </span><span class="kw">pf</span>(W, <span class="dt">df1 =</span> g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">df2 =</span> f, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)
+
+  <span class="kw">return</span>(pval)
+}
+
+<span class="kw">Welch_F</span>(sim_data)</code></pre></div>
+<pre><code>## [1] 0.04812033</code></pre>
+</div>
+<div id="replicate" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Replicate</h3>
+<p>We now have functions that implement steps 2 and 3 of the simulation. Starting with the parameters, <code>generate_data</code> produces a simulated dataset and <code>ANOVA_F</code> and <code>Welch_F</code> use the simulated data to calculate p-values. To evaluate the accuracy of these tests, we now need to repeat this chain of calculations a bunch of times.</p>
+<p>R includes a function called <code>replicate</code> that will be very handy as we design and implement simulations. The function does what its name suggests—it replicates the result of an expression a specified number of times. The first argument is the number of times to replicate and the next argument is an expression (a short piece of code to run). A further argument, <code>simplify</code> allows you to control how the results are structured. Setting <code>simplify = FALSE</code> returns the output as a list. The following code produces 4 replications of the simulated dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim_data &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">4</span>, 
+                      <span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size), 
+                      <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
+<span class="kw">str</span>(sim_data)</code></pre></div>
+<pre><code>## List of 4
+##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
+##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
+##   ..$ x    : num [1:15] 0.406 0.847 0.783 2.9 -0.316 ...
+##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
+##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
+##   ..$ x    : num [1:15] 1.44 2.78 2.83 1.85 3.45 ...
+##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
+##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
+##   ..$ x    : num [1:15] -1.102 3.383 -0.477 3.551 0.843 ...
+##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
+##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
+##   ..$ x    : num [1:15] 0.00649 -0.30408 -0.05318 1.88246 -1.61874 ...</code></pre>
+<p>You can put multiple lines of code in the expression by enclosing them in curly brackets (<code>{}</code>). The following code produces 4 replications of the test statistics and p-value from Welch’s test:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">4</span>, {
+  sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size) 
+  <span class="kw">Welch_F</span>(sim_data)
+}, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.005331825
+## 
+## [[2]]
+## [1] 0.00762545
+## 
+## [[3]]
+## [1] 0.01033648
+## 
+## [[4]]
+## [1] 0.01494348</code></pre>
+<p>However, we need to get results from the ANOVA F-test as well. Let’s add that in and just return a data frame with p-values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">4</span>, {
+  sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size) 
+  anova_p &lt;-<span class="st"> </span><span class="kw">ANOVA_F_direct</span>(sim_data)
+  Welch_p &lt;-<span class="st"> </span><span class="kw">Welch_F</span>(sim_data)
+  <span class="kw">data.frame</span>(<span class="dt">ANOVA =</span> anova_p, <span class="dt">Welch =</span> Welch_p)
+}, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [[1]]
+##         ANOVA       Welch
+## 1 0.005899011 0.002950512
+## 
+## [[2]]
+##         ANOVA      Welch
+## 1 0.004484139 0.06095662
+## 
+## [[3]]
+##          ANOVA       Welch
+## 1 3.061617e-05 0.001430781
+## 
+## [[4]]
+##          ANOVA       Welch
+## 1 0.0008833064 0.002085712</code></pre>
+<p>The <code>bind_rows</code> function from the <code>dplyr</code> package will turn this list into a data frame, for easier manipulation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+p_vals &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">4</span>, {
+  sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size) 
+  anova_p &lt;-<span class="st"> </span><span class="kw">ANOVA_F_direct</span>(sim_data)
+  Welch_p &lt;-<span class="st"> </span><span class="kw">Welch_F</span>(sim_data)
+  <span class="kw">data.frame</span>(<span class="dt">ANOVA =</span> anova_p, <span class="dt">Welch =</span> Welch_p)
+}, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
+
+<span class="kw">bind_rows</span>(p_vals)</code></pre></div>
+<pre><code>##         ANOVA       Welch
+## 1 0.000257279 0.017399416
+## 2 0.001219803 0.046248023
+## 3 0.002564235 0.009556034
+## 4 0.003211766 0.016397965</code></pre>
+<p>Voila! Simulated p-values!</p>
+</div>
+<div id="calculating-rejection-rates" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Calculating rejection rates</h3>
+<p>We’ve got all the pieces in place now to reproduce the results from Brown and Forsythe (1974). Let’s focus on calculating the actual type-I error rate of these tests—that is, the proportion of the time that they reject the null hypothesis of equal means when that null is actually true—for an <span class="math inline">\(\alpha\)</span>-level of .05. We therefore need to simulate data according to process where the population means are indeed all equal. Arbitrarily, let’s look at <span class="math inline">\(g = 4\)</span> groups and set all of the means equal to zero:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>)</code></pre></div>
+<p>In the fifth row of Table 1, they examine performance for the following parameter values for sample size and population variance:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_size &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>)
+sigma_sq &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span></code></pre></div>
+<p>With these parameter values, we can use our <code>replicate</code> code to simulate 10,000 p-values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p_vals &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">10000</span>, {
+  sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size) 
+  anova_p &lt;-<span class="st"> </span><span class="kw">ANOVA_F_direct</span>(sim_data)
+  Welch_p &lt;-<span class="st"> </span><span class="kw">Welch_F</span>(sim_data)
+  <span class="kw">data.frame</span>(<span class="dt">ANOVA =</span> anova_p, <span class="dt">Welch =</span> Welch_p)
+}, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
+
+p_vals &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(p_vals)
+<span class="kw">head</span>(p_vals)</code></pre></div>
+<pre><code>##        ANOVA        Welch
+## 1 0.99476744 0.9992267308
+## 2 0.99414068 0.9858152767
+## 3 0.29221999 0.0002463917
+## 4 0.01787802 0.3668788970
+## 5 0.73786533 0.7771801291
+## 6 0.08392008 0.2533794317</code></pre>
+<p>Now how to calculate the rejection rates? The rule is that the null is rejected if the p-value is less than <span class="math inline">\(\alpha\)</span>. To get the rejection rate, calculate the proportion of replications where the null is rejected. This is equivalent to taking the mean of the logical conditions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(p_vals<span class="op">$</span>ANOVA <span class="op">&lt;</span><span class="st"> </span>.<span class="dv">05</span>)</code></pre></div>
+<pre><code>## [1] 0.1436</code></pre>
+<p>We get a rejection rate that is much larger than <span class="math inline">\(\alpha = .05\)</span>, which indicates that the ANOVA F-test does not adequately control Type-I error under this set of conditions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(p_vals<span class="op">$</span>Welch <span class="op">&lt;</span><span class="st"> </span>.<span class="dv">05</span>)</code></pre></div>
+<pre><code>## [1] 0.0676</code></pre>
+<p>The Welch test does much better, although it is still a little bit in excess of .05.</p>
+<p>Note that these two numbers are quite close (though not quite identical) to the corresponding entries in Table 1 of Brown and Forsythe (1974). The difference is due to the fact that both Table 1 and are results are actually <em>estimated</em> rejection rates, because we haven’t actually simulated an infinite number of replications. The estimation error arising from using a finite number of replications is called <em>simulation error</em> (or <em>Monte Carlo error</em>). In a later class, we’ll look more at how to estimate and control the simulation error in our studies.</p>
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">2.4</span> Exercises</h2>
+<p>The following exercises involve exploring and tweaking the simulation code we’ve developed to replicate the results of Brown and Forsythe (1974). Here are the key functions for the data-generating process and estimation procedures:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">generate_data &lt;-<span class="st"> </span><span class="cf">function</span>(mu, sigma_sq, sample_size) {
+
+  N &lt;-<span class="st"> </span><span class="kw">sum</span>(sample_size) 
+  g &lt;-<span class="st"> </span><span class="kw">length</span>(sample_size) 
+  
+  group &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>g, <span class="dt">times =</span> sample_size) 
+  mu_long &lt;-<span class="st"> </span><span class="kw">rep</span>(mu, <span class="dt">times =</span> sample_size)
+  sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">sqrt</span>(sigma_sq), <span class="dt">times =</span> sample_size) 
+  
+  x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dt">mean =</span> mu_long, <span class="dt">sd =</span> sigma_long)
+  sim_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> group, <span class="dt">x =</span> x)
+    
+  <span class="kw">return</span>(sim_data)
+}
+
+summarize_data &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
+  
+  x_bar &lt;-<span class="st"> </span><span class="kw">with</span>(sim_data, <span class="kw">tapply</span>(x, group, mean))
+  s_sq &lt;-<span class="st"> </span><span class="kw">with</span>(sim_data, <span class="kw">tapply</span>(x, group, var))
+  n &lt;-<span class="st"> </span><span class="kw">table</span>(sim_data<span class="op">$</span>group)
+  g &lt;-<span class="st"> </span><span class="kw">length</span>(x_bar)
+  
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">x_bar =</span> x_bar, <span class="dt">s_sq =</span> s_sq, <span class="dt">n =</span> n, <span class="dt">g =</span> g))
+}
+
+ANOVA_F &lt;-<span class="st"> </span><span class="cf">function</span>(x_bar, s_sq, n, g) {
+  
+  df1 &lt;-<span class="st"> </span>g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+  df2 &lt;-<span class="st"> </span><span class="kw">sum</span>(n) <span class="op">-</span><span class="st"> </span>g
+  
+  msbtw &lt;-<span class="st"> </span><span class="kw">sum</span>(n <span class="op">*</span><span class="st"> </span>(x_bar <span class="op">-</span><span class="st"> </span><span class="kw">weighted.mean</span>(x_bar, <span class="dt">w =</span> n))<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>df1
+  mswn &lt;-<span class="st"> </span><span class="kw">sum</span>((n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>s_sq) <span class="op">/</span><span class="st"> </span>df2
+  fstat &lt;-<span class="st"> </span>msbtw <span class="op">/</span><span class="st"> </span>mswn
+  pval &lt;-<span class="st"> </span><span class="kw">pf</span>(fstat, df1, df2, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)
+ 
+  <span class="kw">return</span>(pval)
+}
+
+Welch_F &lt;-<span class="st"> </span><span class="cf">function</span>(x_bar, s_sq, n, g) {
+   
+  w &lt;-<span class="st"> </span>n <span class="op">/</span><span class="st"> </span>s_sq
+  u &lt;-<span class="st"> </span><span class="kw">sum</span>(w)
+  x_tilde &lt;-<span class="st"> </span><span class="kw">sum</span>(w <span class="op">*</span><span class="st"> </span>x_bar) <span class="op">/</span><span class="st"> </span>u
+  msbtw &lt;-<span class="st"> </span><span class="kw">sum</span>(w <span class="op">*</span><span class="st"> </span>(x_bar <span class="op">-</span><span class="st"> </span>x_tilde)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+
+  G &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>w <span class="op">/</span><span class="st"> </span>u)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+  denom &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st">  </span>G <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(g <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(g<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+  W &lt;-<span class="st"> </span>msbtw <span class="op">/</span><span class="st"> </span>denom
+  f &lt;-<span class="st"> </span>(g<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>G)
+
+  pval &lt;-<span class="st"> </span><span class="kw">pf</span>(W, <span class="dt">df1 =</span> g <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">df2 =</span> f, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)
+
+  <span class="kw">return</span>(<span class="kw">data.frame</span>(<span class="dt">W =</span> W, <span class="dt">f =</span> f, <span class="dt">pval =</span> pval))
+}</code></pre></div>
+<ol style="list-style-type: decimal">
+<li>Table 1 from Brown and Forsythe reported rejection rates for <span class="math inline">\(\alpha = .01\)</span> and <span class="math inline">\(\alpha = .10\)</span> in addition to <span class="math inline">\(\alpha = .05\)</span>. Calculate the rejection rates of the ANOVA F and Welch tests for all three <span class="math inline">\(\alpha\)</span>-levels. Use the dataset of p-values calculated in the Class 12 notes, which is loaded below.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(p_vals)</code></pre></div>
+<pre><code>##        ANOVA        Welch
+## 1 0.99476744 0.9992267308
+## 2 0.99414068 0.9858152767
+## 3 0.29221999 0.0002463917
+## 4 0.01787802 0.3668788970
+## 5 0.73786533 0.7771801291
+## 6 0.08392008 0.2533794317</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Try simulating the Type-I error rates for a the parameter values in the first two rows of Table 1. Use 10,000 replications. How do your results compare to the results reported in the Table?</p></li>
+<li><p>Try simulating the <strong>power levels</strong> for a couple of sets of parameter values from Table 2. Use 10,000 replications. How do your results compare to the results reported in the Table?</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-generating-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-Simulation-structure.Rmd",
+"text": "Edit"
+},
+"download": ["Designing-Simulations-in-R.pdf", "Designing-Simulations-in-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

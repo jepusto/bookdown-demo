@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Designing Monte Carlo Simulations in R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="jepusto/Designing-Simulations-in-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Designing Monte Carlo Simulations in R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="James E. Pustejovsky">
+
+
+<meta name="date" content="2017-08-14">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="estimation-procedures-1.html">
+<link rel="next" href="experimental-design-1.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Designing Simulations in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#purpose-of-simulations"><i class="fa fa-check"></i><b>1.1</b> Purpose of simulations</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.2</b> Why R?</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#functions"><i class="fa fa-check"></i><b>1.2.1</b> Functions</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#function-skeletons"><i class="fa fa-check"></i><b>1.2.2</b> Function skeletons</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#setup"><i class="fa fa-check"></i><b>1.3</b> Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html"><i class="fa fa-check"></i><b>2</b> Structure of a simulation study</a><ul>
+<li class="chapter" data-level="2.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#structure-of-a-simulation-study-1"><i class="fa fa-check"></i><b>2.1</b> Structure of a simulation study</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#experimental-design"><i class="fa fa-check"></i><b>2.1.1</b> Experimental design</a></li>
+<li class="chapter" data-level="2.1.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#data-generating-model"><i class="fa fa-check"></i><b>2.1.2</b> Data-generating model</a></li>
+<li class="chapter" data-level="2.1.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#estimation-methods"><i class="fa fa-check"></i><b>2.1.3</b> Estimation methods</a></li>
+<li class="chapter" data-level="2.1.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#performance-summaries"><i class="fa fa-check"></i><b>2.1.4</b> Performance summaries</a></li>
+<li class="chapter" data-level="2.1.5" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#results"><i class="fa fa-check"></i><b>2.1.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#modular-simulations"><i class="fa fa-check"></i><b>2.2</b> Modular simulations</a></li>
+<li class="chapter" data-level="2.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#a-first-example-heteroskedasticity-anova"><i class="fa fa-check"></i><b>2.3</b> A first example: Heteroskedasticity ANOVA</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#data-generating-model-1"><i class="fa fa-check"></i><b>2.3.1</b> Data-generating model</a></li>
+<li class="chapter" data-level="2.3.2" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#estimation-procedures"><i class="fa fa-check"></i><b>2.3.2</b> Estimation procedures</a></li>
+<li class="chapter" data-level="2.3.3" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#replicate"><i class="fa fa-check"></i><b>2.3.3</b> Replicate</a></li>
+<li class="chapter" data-level="2.3.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#calculating-rejection-rates"><i class="fa fa-check"></i><b>2.3.4</b> Calculating rejection rates</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="structure-of-a-simulation-study.html"><a href="structure-of-a-simulation-study.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-generating-models.html"><a href="data-generating-models.html"><i class="fa fa-check"></i><b>3</b> Data-generating models</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-generating-models.html"><a href="data-generating-models.html#efficiency-versus-simplicity"><i class="fa fa-check"></i><b>3.1</b> Efficiency versus simplicity</a></li>
+<li class="chapter" data-level="3.2" data-path="data-generating-models.html"><a href="data-generating-models.html#checking-the-data-generating-function"><i class="fa fa-check"></i><b>3.2</b> Checking the data-generating function</a></li>
+<li class="chapter" data-level="3.3" data-path="data-generating-models.html"><a href="data-generating-models.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-generating-models.html"><a href="data-generating-models.html#shifted-and-scaled-t-distribution"><i class="fa fa-check"></i><b>3.3.1</b> Shifted-and-scaled t distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html"><i class="fa fa-check"></i><b>4</b> Estimation procedures</a><ul>
+<li class="chapter" data-level="4.1" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#efficiency-considerations"><i class="fa fa-check"></i><b>4.1</b> Efficiency considerations</a></li>
+<li class="chapter" data-level="4.2" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#checking-the-estimation-functions"><i class="fa fa-check"></i><b>4.2</b> Checking the estimation function(s)</a></li>
+<li class="chapter" data-level="4.3" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#estimation-helper-function"><i class="fa fa-check"></i><b>4.3.1</b> Estimation helper function</a></li>
+<li class="chapter" data-level="4.3.2" data-path="estimation-procedures-1.html"><a href="estimation-procedures-1.html#the-bff-test"><i class="fa fa-check"></i><b>4.3.2</b> The BFF* test</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="performance-criteria.html"><a href="performance-criteria.html"><i class="fa fa-check"></i><b>5</b> Performance criteria</a><ul>
+<li class="chapter" data-level="5.1" data-path="performance-criteria.html"><a href="performance-criteria.html#parameter-estimation-absolute-criteria"><i class="fa fa-check"></i><b>5.1</b> Parameter estimation: absolute criteria</a></li>
+<li class="chapter" data-level="5.2" data-path="performance-criteria.html"><a href="performance-criteria.html#parameter-estimation-relative-criteria"><i class="fa fa-check"></i><b>5.2</b> Parameter estimation: relative criteria</a></li>
+<li class="chapter" data-level="5.3" data-path="performance-criteria.html"><a href="performance-criteria.html#absolute-or-relative-performance"><i class="fa fa-check"></i><b>5.3</b> Absolute or relative performance?</a></li>
+<li class="chapter" data-level="5.4" data-path="performance-criteria.html"><a href="performance-criteria.html#assessing-variance-estimators"><i class="fa fa-check"></i><b>5.4</b> Assessing variance estimators</a></li>
+<li class="chapter" data-level="5.5" data-path="performance-criteria.html"><a href="performance-criteria.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.6" data-path="performance-criteria.html"><a href="performance-criteria.html#confidence-intervals"><i class="fa fa-check"></i><b>5.6</b> Confidence intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="performance-criteria.html"><a href="performance-criteria.html#exercises-simulating-cronbachs-alpha"><i class="fa fa-check"></i><b>5.7</b> Exercises: Simulating Cronbach’s alpha</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="performance-criteria.html"><a href="performance-criteria.html#data-generating-function"><i class="fa fa-check"></i><b>5.7.1</b> data-generating function</a></li>
+<li class="chapter" data-level="5.7.2" data-path="performance-criteria.html"><a href="performance-criteria.html#estimation-function"><i class="fa fa-check"></i><b>5.7.2</b> Estimation function</a></li>
+<li class="chapter" data-level="5.7.3" data-path="performance-criteria.html"><a href="performance-criteria.html#replicates"><i class="fa fa-check"></i><b>5.7.3</b> Replicates</a></li>
+<li class="chapter" data-level="5.7.4" data-path="performance-criteria.html"><a href="performance-criteria.html#estimator-performance"><i class="fa fa-check"></i><b>5.7.4</b> Estimator performance</a></li>
+<li class="chapter" data-level="5.7.5" data-path="performance-criteria.html"><a href="performance-criteria.html#confidence-interval-coverage"><i class="fa fa-check"></i><b>5.7.5</b> Confidence interval coverage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="experimental-design-1.html"><a href="experimental-design-1.html"><i class="fa fa-check"></i><b>6</b> Experimental design</a><ul>
+<li class="chapter" data-level="6.1" data-path="experimental-design-1.html"><a href="experimental-design-1.html#choosing-parameter-combinations"><i class="fa fa-check"></i><b>6.1</b> Choosing parameter combinations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html"><i class="fa fa-check"></i><b>7</b> Putting the pieces together</a><ul>
+<li class="chapter" data-level="7.1" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#organizing-the-script-for-a-simulation-study"><i class="fa fa-check"></i><b>7.1</b> Organizing the script for a simulation study</a></li>
+<li class="chapter" data-level="7.2" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#data-generating-model-2"><i class="fa fa-check"></i><b>7.2</b> data-generating model</a></li>
+<li class="chapter" data-level="7.3" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#estimation-procedures-2"><i class="fa fa-check"></i><b>7.3</b> estimation procedures</a></li>
+<li class="chapter" data-level="7.4" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#performance-calculations"><i class="fa fa-check"></i><b>7.4</b> Performance calculations</a></li>
+<li class="chapter" data-level="7.5" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#simulation-driver"><i class="fa fa-check"></i><b>7.5</b> Simulation driver</a></li>
+<li class="chapter" data-level="7.6" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#experimental-design-2"><i class="fa fa-check"></i><b>7.6</b> Experimental design</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#putting-it-all-together"><i class="fa fa-check"></i><b>7.7</b> Putting it all together</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#mdply-workflow"><i class="fa fa-check"></i><b>7.7.1</b> <code>mdply</code> workflow</a></li>
+<li class="chapter" data-level="7.7.2" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#purrrlyr-workflow"><i class="fa fa-check"></i><b>7.7.2</b> <code>purrrlyr</code> workflow</a></li>
+<li class="chapter" data-level="7.7.3" data-path="putting-the-pieces-together.html"><a href="putting-the-pieces-together.html#parallel-processing"><i class="fa fa-check"></i><b>7.7.3</b> parallel processing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html"><i class="fa fa-check"></i><b>8</b> Design, analysis, and presentation of simulation results</a><ul>
+<li class="chapter" data-level="8.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#designing-the-simulation-experiment"><i class="fa fa-check"></i><b>8.1</b> Designing the simulation experiment</a></li>
+<li class="chapter" data-level="8.2" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#choosing-parameter-levels"><i class="fa fa-check"></i><b>8.2</b> Choosing parameter levels</a></li>
+<li class="chapter" data-level="8.3" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#presentation"><i class="fa fa-check"></i><b>8.3</b> Presentation</a></li>
+<li class="chapter" data-level="8.4" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#tabulation"><i class="fa fa-check"></i><b>8.4</b> Tabulation</a></li>
+<li class="chapter" data-level="8.5" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#visualization"><i class="fa fa-check"></i><b>8.5</b> Visualization</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-1"><i class="fa fa-check"></i><b>8.5.1</b> Example 1</a></li>
+<li class="chapter" data-level="8.5.2" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-2"><i class="fa fa-check"></i><b>8.5.2</b> Example 2</a></li>
+<li class="chapter" data-level="8.5.3" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-3-pustejovsky-swan-2014"><i class="fa fa-check"></i><b>8.5.3</b> Example 3 (Pustejovsky &amp; Swan, 2014)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#modeling"><i class="fa fa-check"></i><b>8.6</b> Modeling</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#example-1-1"><i class="fa fa-check"></i><b>8.6.1</b> Example 1</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="design-analysis-and-presentation-of-simulation-results.html"><a href="design-analysis-and-presentation-of-simulation-results.html#presentation-1"><i class="fa fa-check"></i><b>8.7</b> Presentation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Designing Monte Carlo Simulations in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="performance-criteria" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Performance criteria</h1>
+<p>So far, we’ve looked at the structure of simulation studies and seen how to write functions that generate data according to a specified model (and parameters) and functions that implement estimation procedures on simulated data. Put those two together and repeat a bunch of times, and we’ll have a big set of estimates and perhaps also their standard errors and/or confidence intervals. And if the purpose of the simulation is to compare <em>multiple</em> estimation procedures, then we’ll have a set of estimates (SEs, CIs, etc.) for <em>each</em> of the procedures. The question is then: how do we assess the performance of these estimators?</p>
+<p>In this chapter, we’ll look at a variety of <strong>performance criteria</strong> that are commonly used to assess how well an estimator works (or to compare the relative performance of multiple estimators). It is important to keep in mind that all of these performance criteria are themselves properties of the sampling distribution of the estimator—that is, assessments of how the estimator behaves if you repeat the experimental process an infinite number of times. We can’t observe this sampling distribution directly (and it can only rarely be worked out in full mathematical detail), but we can <em>sample</em> from it. The set of estimates generated from a simulation constitute a (typically large) sample from the sampling distribution of an estimator. (Say that six times fast!) We can use that sample to <em>estimate</em> the performance criteria of interest. However, because we will work with a sample of replicates rather than the full distribution, we will need to be aware of the precision of the estimates, or what we will call the <strong>Monte Carlo standard error (MCSE)</strong>. Typically, we’ll want to use a large number of replications so that the MCSE is negligible compared to the magnitude of the parameter of interest.</p>
+<p>Depending on the model and estimation procedures being examined, a range of different criteria might be used to assess estimator performance. The following sections look at four different types of criteria:</p>
+<ol style="list-style-type: decimal">
+<li>Absolute estimation criteria, which are most useful for point estimates of location parameters,</li>
+<li>Relative estimation criteria, which are useful for point estimates of scale parameters and for assessment of the performance of variance estimators,</li>
+<li>Criteria for hypothesis testing procedures, and</li>
+<li>Criteria for confidence intervals.</li>
+</ol>
+<div id="parameter-estimation-absolute-criteria" class="section level2">
+<h2><span class="header-section-number">5.1</span> Parameter estimation: absolute criteria</h2>
+<p>Consider an estimator <span class="math inline">\(T\)</span> for a parameter <span class="math inline">\(\theta\)</span>. A simulation study generates a (typically large) sample of estimators <span class="math inline">\(T_1,...,T_K\)</span>. Define the following sample statistics:</p>
+<ul>
+<li>Sample mean: <span class="math inline">\(\displaystyle{\bar{T} = \frac{1}{K}\sum_{k=1}^K T_k}\)</span></li>
+<li>Sample median: <span class="math inline">\(\displaystyle{\tilde{T} = T_{(K/2)}}\)</span></li>
+<li>Sample variance: <span class="math inline">\(\displaystyle{S_T^2 = \frac{1}{K - 1}\sum_{k=1}^K \left(T_k - \bar{T}\right)^2}\)</span></li>
+<li>Sample skewness (standardized): <span class="math inline">\(\displaystyle{g_T = \frac{1}{K S_T^3}\sum_{k=1}^K \left(T_k - \bar{T}\right)^3}\)</span></li>
+<li>Sample kurtosis (standardized): <span class="math inline">\(\displaystyle{k_T = \frac{1}{K S_T^4} \sum_{k=1}^K \left(T_k - \bar{T}\right)^4}\)</span></li>
+</ul>
+<p>Commonly used criteria for measuring the performance of <span class="math inline">\(T\)</span> include the bias, variance, and mean-squared error (RMSE) of <span class="math inline">\(T\)</span>. Less commonly used criteria include the median bias and the median absolute deviation of <span class="math inline">\(T\)</span>. These criteria are defined in the table below.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="15%" />
+<col width="54%" />
+<col width="21%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Definition</th>
+<th>Estimate</th>
+<th>MCSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bias</td>
+<td><span class="math inline">\(\text{E}(T) - \theta\)</span></td>
+<td><span class="math inline">\(\bar{T} - \theta\)</span></td>
+<td><span class="math inline">\(\sqrt{S_T^2/ K}\)</span></td>
+</tr>
+<tr class="even">
+<td>Median bias</td>
+<td><span class="math inline">\(\text{M}(T) - \theta\)</span></td>
+<td><span class="math inline">\(\tilde{T} - \theta\)</span></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>Variance</td>
+<td><span class="math inline">\(\text{E}\left[\left(T - \text{E}(T)\right)^2\right]\)</span></td>
+<td><span class="math inline">\(S_T^2\)</span></td>
+<td><span class="math inline">\(\displaystyle{S_T^2 \sqrt{\frac{k_T - 1}{K}}}\)</span></td>
+</tr>
+<tr class="even">
+<td>MSE</td>
+<td><span class="math inline">\(\text{E}\left[\left(T - \theta\right)^2\right]\)</span></td>
+<td><span class="math inline">\(\left(\bar{T} - \theta\right)^2 + S_T^2\)</span></td>
+<td><span class="math inline">\(\displaystyle{\sqrt{\frac{1}{K}\left[S_T^4 (k_T - 1) + 4 S_T^3 g_T\left(\bar{T} - \theta\right) + 4 S_T^2 \left(\bar{T} - \theta\right)^2\right]}}\)</span></td>
+</tr>
+<tr class="odd">
+<td>MAD</td>
+<td><span class="math inline">\(\text{M}\left[\left|T - \theta\right|\right]\)</span></td>
+<td><span class="math inline">\(\left[\left|T - \theta\right|\right]_{K/2}\)</span></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Bias and median bias are measures of whether the estimator is systematically higher or lower than the target parameter.</li>
+<li>Variance is a measure of the <strong>precision</strong> of the estimator—that is, how far it deviates <em>from its average</em>.</li>
+<li>Mean-squared error (or root mean-squared error) and median absolute deviation are measures of <strong>overall accuracy</strong>—that is, how far an estimator deviates from the target parameter.</li>
+</ul>
+<p>For absolute assessments of performance, an estimator with low bias and low MSE is desired. For comparisons of relative performance, an estimator with lower MSE is usually preferable to an estimator with higher MSE; if two estimators have comparable MSE, then the estimator with lower bias (or median bias) would usually be preferable.</p>
+<p>It is important to recognize that these performance measures depend on the scale of the parameter. For example, if <span class="math inline">\(\theta\)</span> is the difference in population means on some outcome, then its scale is in the same units as the outcome measure. Standardizing the outcome measure to have unit variance would therefore imply that the bias, median bias, and root mean-squared error are all in standard deviation units. Furthermore, changing the scale of the parameter will lead to changes in magnitude for most of the performance measures. For instance, suppose that <span class="math inline">\(\theta\)</span> is a measure of the proportion of time that a behavior occurs. A natural way to transform this parameter would be to put it on the log-odds (logit) scale. However, <span class="math display">\[\text{Bias}\left[\text{logit}(T)\right] \neq \text{logit}\left(\text{Bias}[T]\right), \qquad \text{MSE}\left[\text{logit}(T)\right] \neq \text{logit}\left(\text{MSE}[T]\right),\]</span> and so on.</p>
+</div>
+<div id="parameter-estimation-relative-criteria" class="section level2">
+<h2><span class="header-section-number">5.2</span> Parameter estimation: relative criteria</h2>
+<p>For parameters that measure scale, or that are always strictly positive, it often makes sense to quantify performance using <em>relative</em> criteria. Relative criteria are very similar to the criteria discussed above, but are defined as proportions of the target parameter, rather than as differences. Consider an estimator <span class="math inline">\(L\)</span> for a parameter <span class="math inline">\(\lambda\)</span>, and define the sample statistics for <span class="math inline">\(L\)</span> analogous to those for <span class="math inline">\(T\)</span>. The table below defines several relative performance criteria.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="15%" />
+<col width="54%" />
+<col width="21%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Definition</th>
+<th>Estimate</th>
+<th>MCSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Relative bias</td>
+<td><span class="math inline">\(\text{E}(L) / \lambda\)</span></td>
+<td><span class="math inline">\(\bar{L} / \lambda\)</span></td>
+<td><span class="math inline">\(\sqrt{S_L^2 / \left(K\lambda^2\right)}\)</span></td>
+</tr>
+<tr class="even">
+<td>Relative median bias</td>
+<td><span class="math inline">\(\text{M}(L) / \lambda\)</span></td>
+<td><span class="math inline">\(\tilde{L} / \lambda\)</span></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>Relative MSE</td>
+<td><span class="math inline">\(\text{E}\left[\left(L - \lambda\right)^2\right] / \lambda^2\)</span></td>
+<td><span class="math inline">\(\frac{\left(\bar{L} - \lambda\right)^2 + S_L^2}{\lambda^2}\)</span></td>
+<td><span class="math inline">\(\displaystyle{\sqrt{\frac{1}{K\lambda^2}\left[S_L^4 (k_L - 1) + 4 S_L^3 g_L\left(\bar{L} - \lambda\right) + 4 S_L^2 \left(\bar{L} - \lambda\right)^2\right]}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Note that values of 1 for relative bias (and relative median bias) imply that the estimator is exactly unbiased. Both are measures of <em>proportionate</em> under- or over-estimation. For example, a relative bias of 1.12 means that the estimator is, on average, 12% higher than the target parameter.</p>
+</div>
+<div id="absolute-or-relative-performance" class="section level2">
+<h2><span class="header-section-number">5.3</span> Absolute or relative performance?</h2>
+<p>If you are designing a simulation of your own, should you use absolute or relative criteria for assessing estimator performance. So far, I’ve suggested that absolute criteria make sense for location parameters and relative criteria make sense for scale parameters. This is admittedly a very rough heuristic. The argument behind it is that if <span class="math inline">\(\theta\)</span> is a location parameter, then its bias, variance, and MSE are likely to be (roughly) independent of its magnitude. If that’s true, then re-defining <span class="math inline">\(\theta\)</span> by adding 1000 (or any arbitrary number) should not change the magnitude of its bias, variance, or MSE. On the other hand, adding 1000 will clearly change the relative bias and relative MSE. (Want smaller relative bias? Just add a million to the parameter!)</p>
+<p>A more principled approach for determining whether to use absolute or relative performance criteria depends on assessing performance for <em>multiple</em> values of the parameter. In many simulation studies, replications are generated and performance criteria are calculated for several different values of a parameter, say <span class="math inline">\(\theta = \theta_1,...,\theta_p\)</span>. Let’s focus on bias for now, and say that we’ve estimated (from a large number of replications) the bias at each parameter value.</p>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-44-1.png" width="768" /></p>
+<p>If the absolute bias is roughly the same for all values of <span class="math inline">\(\theta\)</span> (as in the plot on the left), then it makes sense to report absolute bias as the summary performance criterion. On the other hand, if the bias grows roughly in proportion to <span class="math inline">\(\theta\)</span> (as in the plot on the right), then relative bias is a better summary criterion.</p>
+</div>
+<div id="assessing-variance-estimators" class="section level2">
+<h2><span class="header-section-number">5.4</span> Assessing variance estimators</h2>
+<p>Relative performance criteria are often used to assess the performance of variance estimators (e.g., squared standard errors of regression coefficient estimates) because variance estimators are strictly positive. For example, suppose that the simulation is examining the performance of a point-estimator <span class="math inline">\(T\)</span> for a parameter <span class="math inline">\(\theta\)</span> and an estimator <span class="math inline">\(V\)</span> for the sampling variance of <span class="math inline">\(T\)</span>. In this case, we might not know the true value of the sampling variance of <span class="math inline">\(T\)</span> prior to the simulation. However, we can use the variance of <span class="math inline">\(T\)</span> across the replications (<span class="math inline">\(S_T^2\)</span>) to estimate the true sampling variance <span class="math inline">\(\text{Var}(T)\)</span>. The relative bias would then be estimated by <span class="math inline">\(RB = \bar{V} / S_T^2\)</span> and the relative MSE would be estimated by <span class="math inline">\(\left(\bar{V} + S_V^2\right) / S_T^2\)</span>.</p>
+<p>Estimating the MCSE of the relative bias or relative MSE is complicated by the appearance of a sample quantity, <span class="math inline">\(S_T^2\)</span>, in the denominator of the ratio. To properly assess the overall MCSE, we need to take its uncertainty into account. One way to do so is to use the <em>jackknife</em> technique. Let <span class="math inline">\(\bar{V}_{(j)}\)</span> and <span class="math inline">\(S_{T(j)}^2\)</span> be statistics calculated from the set of replicates <strong><em>that excludes replicate <span class="math inline">\(j\)</span></em></strong>, for <span class="math inline">\(j = 1,...,K\)</span>. The relative bias estimate, excluding replicate <span class="math inline">\(j\)</span> would then be <span class="math inline">\(\bar{V}_{(j)} / S_{T(j)}^2\)</span>. Calculating all <span class="math inline">\(K\)</span> versions of this relative bias estimate and taking the variance yields the jackknife variance estimator:</p>
+<p><span class="math display">\[
+MCSE\left(RB\right) = \frac{1}{K} \sum_{j=1}^K \left(\frac{\bar{V}_{(j)}}{S_{T(j)}^2} - \frac{\bar{V}}{S_T^2}\right)^2.
+\]</span></p>
+<p>This would be quite time-consuming to compute if we did it by brute force. However, with a few algebra tricks we can find a much quicker way. The tricks come from observing that</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{V}_{(j)} &amp;= \frac{1}{K - 1}\left(K \bar{V} - V_j\right) \\
+S_{T(j)}^2 &amp;= \frac{1}{K - 2} \left[(K - 1) S_T^2 - \frac{K}{K - 1}\left(T_j - \bar{T}\right)^2\right]
+\end{aligned}
+\]</span> These formulas can be used to avoid re-computing the mean and sample variance from every subsample.</p>
+</div>
+<div id="hypothesis-testing" class="section level2">
+<h2><span class="header-section-number">5.5</span> Hypothesis testing</h2>
+<p>In simulations to assess the performance of hypothesis testing procedures, the main performance criterion is the <strong>rejection rate</strong> of the hypothesis test. When the data are simulated from a model in which the null hypothesis being tested is true, then the rejection rate is equivalent to the <strong>Type-I error rate</strong> of the test. When the data are simulated from a model in which the null hypothesis is false, then the rejection rate is equivalent to the <strong>power</strong> of the test (for given, non-null parameter values). Ideally, a testing procedure should have actual Type-I error equal to the nominal level <span class="math inline">\(\alpha\)</span>, but such exact tests are rare. There are some different perspectives on how close the actual Type-I error rate should be in order to qualify as suitable for use in practice. Following a strict statistical definition, a hypothesis testing procedure is said to be <strong>level-<span class="math inline">\(\alpha\)</span></strong> if its actual Type-I error rate is <em>always</em> less than or equal to <span class="math inline">\(\alpha\)</span>. Among a set of level-<span class="math inline">\(\alpha\)</span> tests, the test with highest power would be preferred. If looking only at null rejection rates, then the test with Type-I error closest to <span class="math inline">\(\alpha\)</span> would usually be preferred. A less stringent criteria is sometimes used instead, where type I error would be considered acceptable if it is within <span class="math inline">\((0.5\alpha, 1.5 \alpha)\)</span>.</p>
+<p>Often, it is of interest to evaluate the performance of the test at several different <span class="math inline">\(\alpha\)</span> levels. A convenient way to calculate the rejection rate is from a set of simulated <span class="math inline">\(p\)</span>-values. Suppose that <span class="math inline">\(P_k\)</span> is the <span class="math inline">\(p\)</span>-value from simulation replication <span class="math inline">\(k\)</span>, for <span class="math inline">\(k = 1,...,K\)</span>. Then the rejection rate is for a level-<span class="math inline">\(\alpha\)</span> test is defined as <span class="math inline">\(\rho_\alpha = \text{Pr}\left(P_k &lt; \alpha\right)\)</span> and estimated as <span class="math display">\[r_\alpha = \frac{1}{K} \sum_{k=1}^K I(P_k &lt; \alpha).\]</span> Because the replications are independent, the estimated rejection rate follows a binomial distribution with MCSE <span class="math inline">\(\displaystyle{\sqrt{\rho_\alpha\left(1 - \rho_\alpha\right) / K}}\)</span>.</p>
+</div>
+<div id="confidence-intervals" class="section level2">
+<h2><span class="header-section-number">5.6</span> Confidence intervals</h2>
+<p>In simulations to assess the performance of confidence intervals, the main performance criteria are the <strong>coverage rate</strong> and the <strong>average width</strong>. Suppose that the confidence intervals are for the target parameter <span class="math inline">\(\theta\)</span> and have coverage level <span class="math inline">\(\beta\)</span>. Let <span class="math inline">\(A_k\)</span> and <span class="math inline">\(B_k\)</span> denote the lower and upper end-points of the confidence interval from simulation replication <span class="math inline">\(k\)</span>, and let <span class="math inline">\(W_k = B_k - A_k\)</span>, all for <span class="math inline">\(k = 1,...,K\)</span>. The coverage rate and average width criteria are defined in the table below.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="15%" />
+<col width="54%" />
+<col width="21%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Definition</th>
+<th>Estimate</th>
+<th>MCSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coverage</td>
+<td><span class="math inline">\(\omega_\beta = \text{Pr}(A \leq \theta \leq B)\)</span></td>
+<td><span class="math inline">\(\frac{1}{K}\sum_{k=1}^K I(A_k \leq \theta \leq B_k)\)</span></td>
+<td><span class="math inline">\(\sqrt{\omega_\beta \left(1 - \omega_\beta\right) / K}\)</span></td>
+</tr>
+<tr class="even">
+<td>Expected width</td>
+<td><span class="math inline">\(\text{E}(W) = \text{E}(B - A)\)</span></td>
+<td><span class="math inline">\(\bar{W} = \bar{B} - \bar{A}\)</span></td>
+<td><span class="math inline">\(\sqrt{S_W^2 / K}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Just as with hypothesis testing, a strict statistical interpretation would deem a hypothesis testing procedure acceptable if it has actual coverage rate greater than or equal to <span class="math inline">\(\beta\)</span>. If multiple tests satisfy this criterion, then the test with the lowest expected width would be preferable. Some analysts prefer to look at lower and upper coverage separately, where lower coverage is <span class="math inline">\(\text{Pr}(A \leq \theta)\)</span> and upper coverage is <span class="math inline">\(\text{Pr}(\theta \leq B)\)</span>.</p>
+</div>
+<div id="exercises-simulating-cronbachs-alpha" class="section level2">
+<h2><span class="header-section-number">5.7</span> Exercises: Simulating Cronbach’s alpha</h2>
+<p>Cronbach’s <span class="math inline">\(\alpha\)</span> coefficient is commonly reported as a measure of the internal consistency among a set of test items. Consider a set of <span class="math inline">\(p\)</span> test items with population variance-covariance matrix <span class="math inline">\(\boldsymbol\Phi = \left[\phi_{ij}\right]_{i,j=1}^p\)</span>. The <span class="math inline">\(\alpha\)</span> parameter is then defined as <span class="math display">\[
+\alpha = \frac{p}{p - 1}\left(1 - \frac{\sum_{i=1}^p \phi_{ii}}{\sum_{i=1}^p \sum_{j=1}^p \phi_{ij}}\right).
+\]</span></p>
+<p>Given a sample of size <span class="math inline">\(n\)</span>, the usual estimate of <span class="math inline">\(\alpha\)</span> is obtained by replacing the population variances and covariances with corresponding sample estimates. Letting <span class="math inline">\(s_{ij}\)</span> denote the sample covariance of items <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span></p>
+<p><span class="math display">\[
+A = \frac{p}{p - 1}\left(1 - \frac{\sum_{i=1}^p s_{ii}}{\sum_{i=1}^p \sum_{j=1}^p s_{ij}}\right).
+\]</span></p>
+<p>If we assume that the items follow a multivariate normal distribution, then <span class="math inline">\(A\)</span> corresponds to the maximum likelihood estimator of <span class="math inline">\(\alpha\)</span>.</p>
+<p>In these exercises, we will examine the properties of this estimator when the set of <span class="math inline">\(P\)</span> items is <em>not</em> multi-variate normal, but rather follows a multivariate t distribution with <span class="math inline">\(v\)</span> degrees of freedom. For simplicity, we shall assume that the items have common variance and have a <strong>compound symmetric</strong> covariance matrix, such that <span class="math inline">\(\phi_{11} = \phi_{22} = \cdots = \phi_{pp} = \phi\)</span> and <span class="math inline">\(\phi_{ij} = \rho \phi\)</span>. In this case,</p>
+<p><span class="math display">\[
+\alpha = \frac{p \rho}{1 + \rho (p - 1)}.
+\]</span></p>
+<div id="data-generating-function" class="section level3">
+<h3><span class="header-section-number">5.7.1</span> data-generating function</h3>
+<p>The following function generates a sample of <span class="math inline">\(n\)</span> observations of <span class="math inline">\(p\)</span> items from a multivariate t distribution with a compound symmetric covariance matrix, intra-class correlation <span class="math inline">\(\rho\)</span>, and <span class="math inline">\(v\)</span> degrees of freedom:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
+
+r_mvt_items &lt;-<span class="st"> </span><span class="cf">function</span>(n, p, icc, df) {
+  V_mat &lt;-<span class="st"> </span>icc <span class="op">+</span><span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>icc, <span class="dt">nrow =</span> p)
+  X &lt;-<span class="st"> </span><span class="kw">rmvt</span>(<span class="dt">n =</span> n, <span class="dt">sigma =</span> V_mat, <span class="dt">df =</span> df)
+  <span class="kw">colnames</span>(X) &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span>p]
+  X
+}
+
+small_sample &lt;-<span class="st"> </span><span class="kw">r_mvt_items</span>(<span class="dt">n =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">3</span>, <span class="dt">icc =</span> <span class="fl">0.7</span>, <span class="dt">df =</span> <span class="dv">5</span>)
+small_sample</code></pre></div>
+<pre><code>##               A           B           C
+## [1,]  1.3981142  2.47724590  2.26178261
+## [2,] -0.3594373 -1.15013582 -0.78688760
+## [3,]  0.4337564 -0.69410553 -0.00493949
+## [4,]  0.2117151 -1.61679568 -1.57647828
+## [5,] -0.7589249  0.07733664 -0.22762051
+## [6,]  1.3854553  1.20900281  0.26674514
+## [7,]  0.6157082  1.32798407  0.66608699
+## [8,]  2.0188581  1.74054692  1.14555264</code></pre>
+<p>To check that the function is indeed simulating data following the intended distribution, let’s generate a very large sample of items. We can then verify that the correlation matrix of the items is compound-symmetric and that the marginal distributions of the items follow t distributions with specified degrees of freedom.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">big_sample &lt;-<span class="st"> </span><span class="kw">r_mvt_items</span>(<span class="dt">n =</span> <span class="dv">100000</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">icc =</span> <span class="fl">0.7</span>, <span class="dt">df =</span> <span class="dv">5</span>)
+
+<span class="kw">round</span>(<span class="kw">cor</span>(big_sample), <span class="dv">3</span>) <span class="co"># looks good</span></code></pre></div>
+<pre><code>##       A     B     C     D
+## A 1.000 0.695 0.702 0.698
+## B 0.695 1.000 0.696 0.697
+## C 0.702 0.696 1.000 0.697
+## D 0.698 0.697 0.697 1.000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqplot</span>(<span class="kw">qt</span>(<span class="kw">ppoints</span>(<span class="dv">200</span>), <span class="dt">df =</span> <span class="dv">5</span>), big_sample[,<span class="dv">2</span>], <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>))</code></pre></div>
+<p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+</div>
+<div id="estimation-function" class="section level3">
+<h3><span class="header-section-number">5.7.2</span> Estimation function</h3>
+<p>van Zyl, Neudecker, and Nel (2000) demonstrate that, if the items have a compound-symmetric covariance matrix, then the asymptotic variance of <span class="math inline">\(A\)</span> is <span class="math display">\[
+\text{Var}(A) \approx \frac{2p(1 - \alpha)^2}{(p - 1) n}.
+\]</span> Substituting <span class="math inline">\(A\)</span> in place of <span class="math inline">\(\alpha\)</span> gives an estimate of the variance of <span class="math inline">\(A\)</span>. The following function calculates <span class="math inline">\(A\)</span> and its variance estimator from a sample of data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">estimate_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(dat) {
+  V &lt;-<span class="st"> </span><span class="kw">cov</span>(dat)
+  p &lt;-<span class="st"> </span><span class="kw">ncol</span>(dat)
+  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(dat)
+  A &lt;-<span class="st"> </span>p <span class="op">/</span><span class="st"> </span>(p <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(V)) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(V))
+  Var_A &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>A)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>((p <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>n)
+  <span class="kw">data.frame</span>(<span class="dt">A =</span> A, <span class="dt">Var =</span> Var_A)
+}
+
+<span class="kw">estimate_alpha</span>(small_sample)</code></pre></div>
+<pre><code>##          A         Var
+## 1 0.906199 0.003299485</code></pre>
+<p>The <code>psych</code> package provides a function for calculating <span class="math inline">\(\alpha\)</span>, which can be used to verify that the calculation of <span class="math inline">\(A\)</span> in <code>estimate_alpha</code> is correct:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(psych)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">alpha</span>(<span class="dt">x =</span> small_sample))<span class="op">$</span>raw_alpha</code></pre></div>
+<pre><code>## 
+## Reliability analysis   
+##  raw_alpha std.alpha G6(smc) average_r S/N   ase mean  sd
+##       0.91      0.92    0.91      0.78  11 0.049 0.42 1.1</code></pre>
+<pre><code>## [1] 0.906199</code></pre>
+</div>
+<div id="replicates" class="section level3">
+<h3><span class="header-section-number">5.7.3</span> Replicates</h3>
+<p>The following function generates a specified number of replicates of <span class="math inline">\(A\)</span> and its variance estimator, for user-specified parameter values <span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(v\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+simulate_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(reps, n, p, alpha, df) {
+  icc &lt;-<span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span>(p <span class="op">-</span><span class="st"> </span>alpha <span class="op">*</span><span class="st"> </span>(p <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+  <span class="kw">replicate</span>(reps, {
+    dat &lt;-<span class="st"> </span><span class="kw">r_mvt_items</span>(<span class="dt">n =</span> n, <span class="dt">p =</span> p, <span class="dt">icc =</span> icc, <span class="dt">df =</span> df)
+    <span class="kw">estimate_alpha</span>(dat)
+  }, <span class="dt">simplify =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()
+}</code></pre></div>
+<p>We can use it to generate 1000 replicates using samples of size <span class="math inline">\(n = 40\)</span>, <span class="math inline">\(p = 6\)</span> items, a true <span class="math inline">\(\alpha = 0.8\)</span>, and <span class="math inline">\(v = 5\)</span> degrees of freedom:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reps &lt;-<span class="st"> </span><span class="dv">1000</span>
+alpha_true &lt;-<span class="st"> </span><span class="fl">0.8</span>
+alpha_reps &lt;-<span class="st"> </span><span class="kw">simulate_alpha</span>(<span class="dt">reps =</span> reps, <span class="dt">n =</span> <span class="dv">40</span>, <span class="dt">p =</span> <span class="dv">6</span>, <span class="dt">alpha =</span> alpha_true, <span class="dt">df =</span> <span class="dv">5</span>)
+<span class="kw">head</span>(alpha_reps)</code></pre></div>
+<pre><code>##           A         Var
+## 1 0.8561990 0.001240724
+## 2 0.8101130 0.002163423
+## 3 0.8501061 0.001348090
+## 4 0.8364654 0.001604614
+## 5 0.8652237 0.001089880
+## 6 0.7649902 0.003313776</code></pre>
+</div>
+<div id="estimator-performance" class="section level3">
+<h3><span class="header-section-number">5.7.4</span> Estimator performance</h3>
+<ol style="list-style-type: decimal">
+<li>With the parameters specified above, calculate the bias of <span class="math inline">\(A\)</span>. Also calculate the Monte Carlo standard error (MCSE) of the bias estimate.<br />
+</li>
+<li><p>Calculate the mean squared error of <span class="math inline">\(A\)</span>, along with its MCSE.</p></li>
+<li><p>Calculate the relative bias of the asymptotic variance estimator.</p></li>
+<li><p><strong>(Challenge problem)</strong> Use the jackknife to calculate the MCSE for the relative bias of the asymptotic variance estimator.</p></li>
+<li><p><strong>(Challenge problem)</strong> Modify the <code>simulate_alpha</code> function so that it returns a one-row data frame with columns corresponding to the bias, mean squared error, and relative bias of the asymptotic variance estimator. Use the function to evaluate the performance of <span class="math inline">\(A\)</span> for true values of <span class="math inline">\(\alpha\)</span> ranging from 0.5 to 0.9 (i.e., <code>alpha_true_seq &lt;- seq(0.5, 0.9, 0.1)</code>).</p></li>
+</ol>
+</div>
+<div id="confidence-interval-coverage" class="section level3">
+<h3><span class="header-section-number">5.7.5</span> Confidence interval coverage</h3>
+<p>One way to obtain an approximate confidence interval for <span class="math inline">\(\alpha\)</span> would be to take <span class="math inline">\(A \pm z \sqrt{\text{Var}(A)}\)</span>, where <span class="math inline">\(\text{Var}(A)\)</span> is estimated as described above and <span class="math inline">\(z\)</span> is a standard normal critical value at the appropriate level (i.e., <span class="math inline">\(z = 1.96\)</span> for a 95% CI). However, van Zyl, Neudecker, and Nel (2000) suggest that a better approximation involves first applying a transformation to <span class="math inline">\(A\)</span>, then calculating a confidence interval, then back-transforming to the original scale (this is very similar to the procedure for calculating confidence intervals for correlation coefficients, using Fisher’s <span class="math inline">\(z\)</span> transformation). Let</p>
+<p><span class="math display">\[
+\begin{align}
+\beta &amp;= \frac{1}{2} \ln\left(1 - \alpha\right) \\
+B &amp;= \frac{1}{2} \ln\left(1 - A\right)
+\end{align}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+V^B = \frac{p}{2 n (p - 1)}.
+\]</span></p>
+<p>An approximate confidence interval for <span class="math inline">\(\beta\)</span> is given by <span class="math inline">\([B_L, B_U]\)</span>, where</p>
+<p><span class="math display">\[
+B_L = B - z \sqrt{V^B}, \qquad B_U = B + z \sqrt{V^B}.
+\]</span></p>
+<p>Applying the inverse of the transformation gives a confidence interval for <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[
+\left[1 - \exp(2B_U), \ 1 - \exp(2 B_L)\right].
+\]</span></p>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Modify the <code>estimate_alpha</code> function to calculate a confidence interval for <span class="math inline">\(\alpha\)</span>, following the method described above.</p></li>
+<li><p>With the modified version of <code>estimate_alpha</code>, re-run the following code to obtain 1000 replicated confidence intervals. Calculate the true coverage rate of the confidence interval. Also calculate the Monte Carlo standard error (MCSE) of this coverage rate.</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reps &lt;-<span class="st"> </span><span class="dv">1000</span>
+alpha_true &lt;-<span class="st"> </span><span class="fl">0.8</span>
+alpha_reps &lt;-<span class="st"> </span><span class="kw">simulate_alpha</span>(<span class="dt">reps =</span> reps, <span class="dt">n =</span> <span class="dv">40</span>, <span class="dt">p =</span> <span class="dv">6</span>, <span class="dt">alpha =</span> alpha_true, <span class="dt">df =</span> <span class="dv">5</span>)</code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Calculate the average width of the confidence interval for <span class="math inline">\(\alpha\)</span>, along with its MCSE.</li>
+</ol>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estimation-procedures-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="experimental-design-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-Performance-criteria.Rmd",
+"text": "Edit"
+},
+"download": ["Designing-Simulations-in-R.pdf", "Designing-Simulations-in-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
