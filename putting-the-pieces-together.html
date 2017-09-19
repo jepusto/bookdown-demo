@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Designing Monte Carlo Simulations in R</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
-  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="James E. Pustejovsky">
 
 
-<meta name="date" content="2017-08-14">
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -595,7 +595,7 @@ params<span class="op">$</span>seed &lt;-<span class="st"> </span><span class="k
 
 <span class="kw">system.time</span>(results_mdply &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">mdply</span>(params, <span class="dt">.fun =</span> run_alpha_sim))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##  13.769   0.000  13.854</code></pre>
+##   7.862   0.001   7.862</code></pre>
 <p>The output is then as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(results_mdply, <span class="dt">n =</span> <span class="dv">12</span>)</code></pre></div>
 <pre><code>##      n p alpha df iterations       seed       criterion         est
@@ -656,7 +656,7 @@ params<span class="op">$</span>seed &lt;-<span class="st"> </span><span class="k
 <span class="st">    </span><span class="kw">invoke_rows</span>(<span class="dt">.f =</span> run_alpha_sim, <span class="dt">.to =</span> <span class="st">&quot;res&quot;</span>)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##  12.698   0.000  12.811</code></pre>
+##   7.803   0.000   7.803</code></pre>
 <p>The result looks a bit different than the result of using <code>mdply</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(results_purrr, <span class="dt">n =</span> <span class="dv">12</span>)</code></pre></div>
 <pre><code>## # A tibble: 12 x 7

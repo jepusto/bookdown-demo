@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Designing Monte Carlo Simulations in R</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
-  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="James E. Pustejovsky">
 
 
-<meta name="date" content="2017-08-14">
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -226,7 +226,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  One-way analysis of means
 ## 
 ## data:  x and factor(group)
-## F = 0.84931, num df = 3, denom df = 30, p-value = 0.4779</code></pre>
+## F = 1.4487, num df = 3, denom df = 30, p-value = 0.2483</code></pre>
 <p>The main result we need here is the p-value, which will let us assess the test’s Type-I error and power for a given nominal <span class="math inline">\(\alpha\)</span>-level. The following function takes simulated data as input and returns as output the p-value from a one-way ANOVA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANOVA_F_aov &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
   oneway_anova &lt;-<span class="st"> </span><span class="kw">oneway.test</span>(x <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(group), <span class="dt">data =</span> sim_data, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)
@@ -234,7 +234,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }
 
 <span class="kw">ANOVA_F_aov</span>(sim_data)</code></pre></div>
-<pre><code>## [1] 0.4779338</code></pre>
+<pre><code>## [1] 0.2483031</code></pre>
 <p>An alternative approach would be to program the ANOVA F statistic and test directly. Following the formulas on p. 129 of Brown and Forsythe (1974):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANOVA_F_direct &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
   
@@ -255,17 +255,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }
 
 <span class="kw">ANOVA_F_direct</span>(sim_data)</code></pre></div>
-<pre><code>## [1] 0.4779338</code></pre>
+<pre><code>## [1] 0.2483031</code></pre>
 <p>This approach takes more work to program, but will end up being quicker to compute. To see the difference, we’ll use an R package called <code>microbenchmark</code> to test how long the computations take for each version of the function. The <code>microbenchmark</code> function runs each expression 100 times (by default) and tracks how long the computations take. It then summarizes the distribution of timings:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 timings &lt;-<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="dt">Rfunction =</span> <span class="kw">ANOVA_F_aov</span>(sim_data),
                           <span class="dt">direct    =</span> <span class="kw">ANOVA_F_direct</span>(sim_data))
 timings</code></pre></div>
 <pre><code>## Unit: microseconds
-##       expr      min       lq      mean   median       uq      max neval
-##  Rfunction 1109.309 1424.143 1805.6537 1664.278 2034.734 5609.266   100
-##     direct  578.973  824.985  997.2742  956.275 1178.803 1586.341   100</code></pre>
-<p>The direct function is 1.8 times faster than the built-in R function.</p>
+##       expr      min       lq      mean    median       uq      max neval
+##  Rfunction 1073.957 1110.559 1232.1837 1127.8575 1188.885 3915.630   100
+##     direct  594.315  624.356  665.0061  638.4915  685.986  811.927   100</code></pre>
+<p>The direct function is 1.9 times faster than the built-in R function.</p>
 <p>This result is pretty typical. Built-in R functions usually include lots of checks and error-handling, which take time to compute. These checks are crucial for messy, real-world data analysis but unnecessary with our pristine, simulated data. Here we can skip them by doing the calculations directly.</p>
 <p>Now let’s consider another one of the tests considered by Brown and Forsythe. Here is a function that calculates the Welch test, again following the notation and formulas from the paper:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Welch_F &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
@@ -291,7 +291,7 @@ timings</code></pre></div>
 }
 
 <span class="kw">Welch_F</span>(sim_data)</code></pre></div>
-<pre><code>## [1] 0.6850168</code></pre>
+<pre><code>## [1] 0.4172818</code></pre>
 <div id="efficiency-considerations" class="section level2">
 <h2><span class="header-section-number">4.1</span> Efficiency considerations</h2>
 <p>Computational efficiency is usually a secondary consideration when you’re starting to design a simulation study. It’s better to produce accurate code, even if it’s a bit slow, than to use write code that is speedy but hard to follow (or even worse, that produces incorrect results). All that said, there is some glaring redundancy in the two functions we’ve looked at so far. Both of them start by taking the simulated data and calculating summary statistics for each group, using the following code:</p>
@@ -313,11 +313,11 @@ g &lt;-<span class="st"> </span><span class="kw">length</span>(x_bar)</code></pr
 <span class="kw">summarize_data</span>(sim_data)</code></pre></div>
 <pre><code>## $x_bar
 ##          1          2          3          4 
-##  0.9693030 -0.2453213 -0.1286568 -0.6638234 
+## -0.3545704 -0.9992128  1.3785627  0.2061606 
 ## 
 ## $s_sq
-##          1          2          3          4 
-## 12.1008494  3.5928336  2.7443919  0.8483315 
+##         1         2         3         4 
+## 13.824046 11.439700  5.319099  1.305822 
 ## 
 ## $n
 ## 
@@ -342,7 +342,7 @@ g &lt;-<span class="st"> </span><span class="kw">length</span>(x_bar)</code></pr
 
 summary_stats &lt;-<span class="st"> </span><span class="kw">summarize_data</span>(sim_data)
 <span class="kw">with</span>(summary_stats, <span class="kw">ANOVA_F</span>(<span class="dt">x_bar =</span> x_bar, <span class="dt">s_sq =</span> s_sq, <span class="dt">n =</span> n, <span class="dt">g =</span> g))</code></pre></div>
-<pre><code>## [1] 0.4779338</code></pre>
+<pre><code>## [1] 0.2483031</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Welch_F &lt;-<span class="st"> </span><span class="cf">function</span>(x_bar, s_sq, n, g) {
    
   w &lt;-<span class="st"> </span>n <span class="op">/</span><span class="st"> </span>s_sq
@@ -361,8 +361,8 @@ summary_stats &lt;-<span class="st"> </span><span class="kw">summarize_data</spa
 }
 
 <span class="kw">with</span>(summary_stats, <span class="kw">Welch_F</span>(<span class="dt">x_bar =</span> x_bar, <span class="dt">s_sq =</span> s_sq, <span class="dt">n =</span> n, <span class="dt">g =</span> g))</code></pre></div>
-<pre><code>##           W        f      pval
-## 1 0.5093909 9.629972 0.6850168</code></pre>
+<pre><code>##          W        f      pval
+## 1 1.043552 9.458841 0.4172818</code></pre>
 <p>The results are the same as before.</p>
 </div>
 <div id="checking-the-estimation-functions" class="section level2">
@@ -375,11 +375,11 @@ aov_results</code></pre></div>
 ##  One-way analysis of means
 ## 
 ## data:  x and factor(group)
-## F = 0.33567, num df = 3, denom df = 30, p-value = 0.7996</code></pre>
+## F = 2.5599, num df = 3, denom df = 30, p-value = 0.07358</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary_stats &lt;-<span class="st"> </span><span class="kw">summarize_data</span>(sim_data)
 F_results &lt;-<span class="st"> </span><span class="kw">with</span>(summary_stats, <span class="kw">ANOVA_F</span>(<span class="dt">x_bar =</span> x_bar, <span class="dt">s_sq =</span> s_sq, <span class="dt">n =</span> n, <span class="dt">g =</span> g))
 F_results</code></pre></div>
-<pre><code>## [1] 0.7996295</code></pre>
+<pre><code>## [1] 0.07357847</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(aov_results<span class="op">$</span>p.value, F_results)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>We can follow the same approach to check the results of the Welch test because it is also implemented in <code>oneway.test</code>:</p>
@@ -389,11 +389,11 @@ aov_results</code></pre></div>
 ##  One-way analysis of means (not assuming equal variances)
 ## 
 ## data:  x and factor(group)
-## F = 0.22718, num df = 3.0000, denom df = 9.2637, p-value = 0.8752</code></pre>
+## F = 2.5941, num df = 3.000, denom df = 10.468, p-value = 0.1081</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">W_results &lt;-<span class="st"> </span><span class="kw">with</span>(summary_stats, <span class="kw">Welch_F</span>(<span class="dt">x_bar =</span> x_bar, <span class="dt">s_sq =</span> s_sq, <span class="dt">n =</span> n, <span class="dt">g =</span> g))
 W_results</code></pre></div>
 <pre><code>##          W        f      pval
-## 1 0.227178 9.263717 0.8752243</code></pre>
+## 1 2.594102 10.46754 0.1080978</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(aov_results<span class="op">$</span>p.value, W_results<span class="op">$</span>pval)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Checking estimation functions can be a bit more difficult for procedures that are not already implemented in R. For example, the two other procedures examined by Brown and Forsythe, the James’ test and Brown and Forsythe’s <span class="math inline">\(F*\)</span> test, are not available in base R. They are available in the user-contributed package <code>onewaytests</code> (I found this by searching for “Brown-Forsythe” at <a href="http://rseek.org/" class="uri">http://rseek.org/</a>). We could benchmark our calculations against this package, but of course there is some risk that the package might not be correct. Another route is to verify your results on numerical examples reported in authoritative papers, on the assumption that there’s less risk of an error there. In the original paper that proposed the test, Welch (1951) provides a worked numerical example of the procedure. He reports the following summary statistics:</p>

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Designing Monte Carlo Simulations in R</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
-  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="James E. Pustejovsky">
 
 
-<meta name="date" content="2017-08-14">
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -279,22 +279,22 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 ## [15,]     4       6   1.000000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(N, <span class="dt">mean =</span> mu_long, <span class="dt">sd =</span> sigma_long)
 <span class="kw">data.frame</span>(<span class="dt">group =</span> group, <span class="dt">x =</span> x)</code></pre></div>
-<pre><code>##    group         x
-## 1      1 1.4569509
-## 2      1 1.8657055
-## 3      1 6.1127756
-## 4      2 3.5155790
-## 5      2 0.5518942
-## 6      2 1.2912097
-## 7      2 3.9899722
-## 8      2 1.2078286
-## 9      2 0.9297065
-## 10     3 3.8267430
-## 11     3 7.6545071
-## 12     4 6.2541702
-## 13     4 6.2357265
-## 14     4 5.2957663
-## 15     4 4.1019719</code></pre>
+<pre><code>##    group          x
+## 1      1  0.4822516
+## 2      1  1.0752085
+## 3      1 -2.4938225
+## 4      2  1.0918780
+## 5      2  1.4485053
+## 6      2  4.1764795
+## 7      2  1.5667341
+## 8      2  0.3246407
+## 9      2  2.8558169
+## 10     3  3.6728065
+## 11     3  5.5564407
+## 12     4  7.8966876
+## 13     4  6.5056311
+## 14     4  5.7699004
+## 15     4  4.7338175</code></pre>
 <p>Now wrap this code in a function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">generate_data &lt;-<span class="st"> </span><span class="cf">function</span>(mu, sigma_sq, sample_size) {
 
@@ -313,39 +313,39 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 
 <span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size)</code></pre></div>
 <pre><code>##    group          x
-## 1      1 0.65565606
-## 2      1 2.23666489
-## 3      1 0.70417639
-## 4      2 3.48320606
-## 5      2 0.02547002
-## 6      2 1.49174544
-## 7      2 1.89224628
-## 8      2 3.22003988
-## 9      2 3.77830719
-## 10     3 3.78515727
-## 11     3 4.86079682
-## 12     4 6.26425555
-## 13     4 6.00298315
-## 14     4 4.75793372
-## 15     4 4.82867843</code></pre>
+## 1      1 -2.0773686
+## 2      1  0.3132873
+## 3      1  2.1737720
+## 4      2  1.0551871
+## 5      2  3.4380941
+## 6      2  3.0390103
+## 7      2  2.4394515
+## 8      2  4.4604866
+## 9      2  3.3478474
+## 10     3  1.8169673
+## 11     3  4.3918378
+## 12     4  6.2176345
+## 13     4  7.9857844
+## 14     4  5.0814689
+## 15     4  6.1412172</code></pre>
 <p>Re-run the function and we get a new set of simulated data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size)</code></pre></div>
-<pre><code>##    group           x
-## 1      1  0.06119595
-## 2      1 -0.03831476
-## 3      1 -0.39663967
-## 4      2  4.33522948
-## 5      2  3.94349778
-## 6      2  0.63092115
-## 7      2  1.35245824
-## 8      2  5.55185218
-## 9      2  0.25688449
-## 10     3  5.89729532
-## 11     3  5.90541772
-## 12     4  5.02206136
-## 13     4  6.65838548
-## 14     4  6.66282749
-## 15     4  5.46507690</code></pre>
+<pre><code>##    group          x
+## 1      1 -1.4882201
+## 2      1  2.8344801
+## 3      1  0.9330307
+## 4      2  1.8596232
+## 5      2  3.4502226
+## 6      2  1.2956599
+## 7      2  0.6343196
+## 8      2  2.0022673
+## 9      2  2.9621660
+## 10     3 10.4442654
+## 11     3  3.8240359
+## 12     4  6.7011487
+## 13     4  5.3237051
+## 14     4  5.4305371
+## 15     4  6.2220558</code></pre>
 </div>
 <div id="estimation-procedures" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Estimation procedures</h3>
@@ -356,7 +356,7 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 ##  One-way analysis of means
 ## 
 ## data:  x and factor(group)
-## F = 8.2269, num df = 3, denom df = 11, p-value = 0.00375</code></pre>
+## F = 10.609, num df = 3, denom df = 11, p-value = 0.001414</code></pre>
 <p>The main result we need here is the p-value, which will let us assess the test’s Type-I error and power for a given nominal <span class="math inline">\(\alpha\)</span>-level. The following function takes simulated data as input and returns as output the p-value from a one-way ANOVA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANOVA_F_aov &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
   oneway_anova &lt;-<span class="st"> </span><span class="kw">oneway.test</span>(x <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(group), <span class="dt">data =</span> sim_data, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)
@@ -364,7 +364,7 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 }
 
 <span class="kw">ANOVA_F_aov</span>(sim_data)</code></pre></div>
-<pre><code>## [1] 0.003750123</code></pre>
+<pre><code>## [1] 0.001414148</code></pre>
 <p>An alternative approach would be to program the ANOVA F statistic and test directly. Following the formulas on p. 129 of Brown and Forsythe (1974):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANOVA_F_direct &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
   
@@ -385,7 +385,7 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 }
 
 <span class="kw">ANOVA_F_direct</span>(sim_data)</code></pre></div>
-<pre><code>## [1] 0.003750123</code></pre>
+<pre><code>## [1] 0.001414148</code></pre>
 <p>This approach takes more work to program, but will end up being quicker to compute.</p>
 <p>Now let’s consider another one of the tests considered by Brown and Forsythe. Here is a function that calculates the Welch test, again following the notation and formulas from the paper:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Welch_F &lt;-<span class="st"> </span><span class="cf">function</span>(sim_data) {
@@ -411,7 +411,7 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 }
 
 <span class="kw">Welch_F</span>(sim_data)</code></pre></div>
-<pre><code>## [1] 0.04812033</code></pre>
+<pre><code>## [1] 0.01112745</code></pre>
 </div>
 <div id="replicate" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Replicate</h3>
@@ -424,32 +424,32 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 <pre><code>## List of 4
 ##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
 ##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
-##   ..$ x    : num [1:15] 0.406 0.847 0.783 2.9 -0.316 ...
+##   ..$ x    : num [1:15] 1.2647 -0.2778 -0.0568 2.1726 4.0633 ...
 ##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
 ##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
-##   ..$ x    : num [1:15] 1.44 2.78 2.83 1.85 3.45 ...
+##   ..$ x    : num [1:15] 2.4746 2.0527 1.7435 0.0836 2.0024 ...
 ##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
 ##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
-##   ..$ x    : num [1:15] -1.102 3.383 -0.477 3.551 0.843 ...
+##   ..$ x    : num [1:15] 0.594 1.441 1.161 0.849 0.353 ...
 ##  $ :&#39;data.frame&#39;:    15 obs. of  2 variables:
 ##   ..$ group: int [1:15] 1 1 1 2 2 2 2 2 2 3 ...
-##   ..$ x    : num [1:15] 0.00649 -0.30408 -0.05318 1.88246 -1.61874 ...</code></pre>
+##   ..$ x    : num [1:15] 1.746 -0.141 0.824 1.248 2.275 ...</code></pre>
 <p>You can put multiple lines of code in the expression by enclosing them in curly brackets (<code>{}</code>). The following code produces 4 replications of the test statistics and p-value from Welch’s test:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">4</span>, {
   sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size) 
   <span class="kw">Welch_F</span>(sim_data)
 }, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [[1]]
-## [1] 0.005331825
+## [1] 0.02880681
 ## 
 ## [[2]]
-## [1] 0.00762545
+## [1] 0.02315537
 ## 
 ## [[3]]
-## [1] 0.01033648
+## [1] 0.001157549
 ## 
 ## [[4]]
-## [1] 0.01494348</code></pre>
+## [1] 0.009491997</code></pre>
 <p>However, we need to get results from the ANOVA F-test as well. Let’s add that in and just return a data frame with p-values:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">replicate</span>(<span class="dt">n =</span> <span class="dv">4</span>, {
   sim_data &lt;-<span class="st"> </span><span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size) 
@@ -458,20 +458,20 @@ sigma_long &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
   <span class="kw">data.frame</span>(<span class="dt">ANOVA =</span> anova_p, <span class="dt">Welch =</span> Welch_p)
 }, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [[1]]
-##         ANOVA       Welch
-## 1 0.005899011 0.002950512
+##          ANOVA      Welch
+## 1 0.0007396765 0.06939443
 ## 
 ## [[2]]
 ##         ANOVA      Welch
-## 1 0.004484139 0.06095662
+## 1 0.002265724 0.01577381
 ## 
 ## [[3]]
-##          ANOVA       Welch
-## 1 3.061617e-05 0.001430781
+##         ANOVA     Welch
+## 1 0.001612422 0.0571153
 ## 
 ## [[4]]
-##          ANOVA       Welch
-## 1 0.0008833064 0.002085712</code></pre>
+##        ANOVA      Welch
+## 1 0.02272783 0.07474894</code></pre>
 <p>The <code>bind_rows</code> function from the <code>dplyr</code> package will turn this list into a data frame, for easier manipulation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 
@@ -483,11 +483,11 @@ p_vals &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span cla
 }, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)
 
 <span class="kw">bind_rows</span>(p_vals)</code></pre></div>
-<pre><code>##         ANOVA       Welch
-## 1 0.000257279 0.017399416
-## 2 0.001219803 0.046248023
-## 3 0.002564235 0.009556034
-## 4 0.003211766 0.016397965</code></pre>
+<pre><code>##          ANOVA       Welch
+## 1 1.332414e-04 0.002647816
+## 2 5.383084e-05 0.012119009
+## 3 5.078403e-02 0.019153694
+## 4 1.815768e-03 0.045761493</code></pre>
 <p>Voila! Simulated p-values!</p>
 </div>
 <div id="calculating-rejection-rates" class="section level3">
@@ -507,19 +507,19 @@ sigma_sq &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv
 
 p_vals &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(p_vals)
 <span class="kw">head</span>(p_vals)</code></pre></div>
-<pre><code>##        ANOVA        Welch
-## 1 0.99476744 0.9992267308
-## 2 0.99414068 0.9858152767
-## 3 0.29221999 0.0002463917
-## 4 0.01787802 0.3668788970
-## 5 0.73786533 0.7771801291
-## 6 0.08392008 0.2533794317</code></pre>
+<pre><code>##       ANOVA     Welch
+## 1 0.9224926 0.9348893
+## 2 0.2931098 0.4921055
+## 3 0.4004571 0.6817363
+## 4 0.5388679 0.4597107
+## 5 0.4740096 0.5876007
+## 6 0.2582931 0.5352149</code></pre>
 <p>Now how to calculate the rejection rates? The rule is that the null is rejected if the p-value is less than <span class="math inline">\(\alpha\)</span>. To get the rejection rate, calculate the proportion of replications where the null is rejected. This is equivalent to taking the mean of the logical conditions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(p_vals<span class="op">$</span>ANOVA <span class="op">&lt;</span><span class="st"> </span>.<span class="dv">05</span>)</code></pre></div>
-<pre><code>## [1] 0.1436</code></pre>
+<pre><code>## [1] 0.1414</code></pre>
 <p>We get a rejection rate that is much larger than <span class="math inline">\(\alpha = .05\)</span>, which indicates that the ANOVA F-test does not adequately control Type-I error under this set of conditions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(p_vals<span class="op">$</span>Welch <span class="op">&lt;</span><span class="st"> </span>.<span class="dv">05</span>)</code></pre></div>
-<pre><code>## [1] 0.0676</code></pre>
+<pre><code>## [1] 0.0644</code></pre>
 <p>The Welch test does much better, although it is still a little bit in excess of .05.</p>
 <p>Note that these two numbers are quite close (though not quite identical) to the corresponding entries in Table 1 of Brown and Forsythe (1974). The difference is due to the fact that both Table 1 and are results are actually <em>estimated</em> rejection rates, because we haven’t actually simulated an infinite number of replications. The estimation error arising from using a finite number of replications is called <em>simulation error</em> (or <em>Monte Carlo error</em>). In a later class, we’ll look more at how to estimate and control the simulation error in our studies.</p>
 </div>
@@ -585,13 +585,13 @@ Welch_F &lt;-<span class="st"> </span><span class="cf">function</span>(x_bar, s_
 <li>Table 1 from Brown and Forsythe reported rejection rates for <span class="math inline">\(\alpha = .01\)</span> and <span class="math inline">\(\alpha = .10\)</span> in addition to <span class="math inline">\(\alpha = .05\)</span>. Calculate the rejection rates of the ANOVA F and Welch tests for all three <span class="math inline">\(\alpha\)</span>-levels. Use the dataset of p-values calculated in the Class 12 notes, which is loaded below.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(p_vals)</code></pre></div>
-<pre><code>##        ANOVA        Welch
-## 1 0.99476744 0.9992267308
-## 2 0.99414068 0.9858152767
-## 3 0.29221999 0.0002463917
-## 4 0.01787802 0.3668788970
-## 5 0.73786533 0.7771801291
-## 6 0.08392008 0.2533794317</code></pre>
+<pre><code>##       ANOVA     Welch
+## 1 0.9224926 0.9348893
+## 2 0.2931098 0.4921055
+## 3 0.4004571 0.6817363
+## 4 0.5388679 0.4597107
+## 5 0.4740096 0.5876007
+## 6 0.2582931 0.5352149</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Try simulating the Type-I error rates for a the parameter values in the first two rows of Table 1. Use 10,000 replications. How do your results compare to the results reported in the Table?</p></li>
 <li><p>Try simulating the <strong>power levels</strong> for a couple of sets of parameter values from Table 2. Use 10,000 replications. How do your results compare to the results reported in the Table?</p></li>

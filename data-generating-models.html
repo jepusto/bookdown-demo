@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Designing Monte Carlo Simulations in R</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
-  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="James E. Pustejovsky">
 
 
-<meta name="date" content="2017-08-14">
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -236,40 +236,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">generate_data</span>(<span class="dt">mu =</span> mu, <span class="dt">sigma_sq =</span> sigma_sq, <span class="dt">sample_size =</span> sample_size)</code></pre></div>
 <pre><code>##    group           x
-## 1      1 -2.87254368
-## 2      1  2.20188883
-## 3      1 -1.45054780
-## 4      1 -2.09701367
-## 5      2  1.80174035
-## 6      2 -0.92694182
-## 7      2  0.44136841
-## 8      2 -3.02336813
-## 9      2 -1.50626383
-## 10     2 -0.14336465
-## 11     2 -1.26990916
-## 12     2 -1.58370904
-## 13     3 -1.31211461
-## 14     3 -0.89526784
-## 15     3 -0.20194682
-## 16     3 -0.72520618
-## 17     3  1.88107936
-## 18     3  0.28472615
-## 19     3  1.06879040
-## 20     3 -0.31961076
-## 21     3 -0.55463084
-## 22     3  2.12284384
-## 23     4  0.37876358
-## 24     4 -0.17135239
-## 25     4  0.05278304
-## 26     4  1.30197123
-## 27     4  0.30474176
-## 28     4  0.10042395
-## 29     4  1.07226019
-## 30     4  0.67213706
-## 31     4 -0.66253591
-## 32     4 -1.73126993
-## 33     4 -1.21758714
-## 34     4 -1.38831845</code></pre>
+## 1      1 -6.10311699
+## 2      1  7.09779010
+## 3      1 -3.05324570
+## 4      1  0.17916851
+## 5      2 -5.79803792
+## 6      2  2.12062853
+## 7      2 -1.32251409
+## 8      2  1.37889305
+## 9      2 -5.27709299
+## 10     2  3.01442148
+## 11     2  0.96792425
+## 12     2  1.10883293
+## 13     3  0.79363153
+## 14     3  1.13525361
+## 15     3 -1.76916191
+## 16     3  0.85537834
+## 17     3 -1.44973443
+## 18     3  0.94222524
+## 19     3 -0.68975036
+## 20     3 -2.51196256
+## 21     3 -0.54302904
+## 22     3 -2.08463159
+## 23     4 -0.76333201
+## 24     4 -0.12681325
+## 25     4 -1.27165406
+## 26     4  0.40327601
+## 27     4  0.35994012
+## 28     4  0.85735394
+## 29     4  0.85166433
+## 30     4 -1.60296844
+## 31     4  0.44923101
+## 32     4 -0.13996682
+## 33     4  0.05025531
+## 34     4 -0.57785882</code></pre>
 <div id="efficiency-versus-simplicity" class="section level2">
 <h2><span class="header-section-number">3.1</span> Efficiency versus simplicity</h2>
 <p>An alternative approach to the above would be to write a function that generates <em>multiple</em> sets of simulated data all at once. For example, we could specify that we want <code>R</code> replications of the study and have the function spit out a matrix with <code>R</code> columns, one for each simulated dataset:</p>
@@ -293,41 +293,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  [1] 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4
 ## 
 ## $x_mat
-##              [,1]         [,2]        [,3]        [,4]
-##  [1,] -4.47206325  0.798261439  2.57557848  0.79130975
-##  [2,]  2.11140732  1.261582081 -1.11468903  4.99783799
-##  [3,]  1.31577365 -0.043265694  3.07623169  3.28232217
-##  [4,] -3.44897925 -0.907080491 -1.08790668  2.56231819
-##  [5,]  1.08188120  1.377107226  0.16784941 -0.07911264
-##  [6,]  2.61469014 -1.354155054 -1.14466518 -3.07949714
-##  [7,] -1.60607868 -1.288428389 -2.17032636  4.97725473
-##  [8,] -3.20520777 -0.867586995  1.39742435  3.42316088
-##  [9,]  0.58639995 -0.625402970  2.30983137  1.64604619
-## [10,] -1.45547904 -1.650937961 -0.70341386  1.38214284
-## [11,]  2.58372544 -1.654779585  3.21635012 -2.64333644
-## [12,] -1.32961763 -0.501602537  1.51381880 -1.07846496
-## [13,]  0.93404913  0.640929656 -1.50950626  0.20384771
-## [14,]  0.27683673 -0.839093848  0.84920400  0.63944790
-## [15,] -0.46620894  0.035363065 -2.24163526 -0.36808100
-## [16,]  2.20129821  4.133973185 -1.88306128  1.46069234
-## [17,]  0.88980507 -0.831646906  1.63506482  1.39477322
-## [18,] -1.19335570  0.989784886  2.65148247 -2.64090763
-## [19,]  0.09128187 -0.774347999  0.11562858 -1.58307301
-## [20,]  1.44664637  0.693711464  1.35269608 -3.22316721
-## [21,] -2.94407712 -0.019001956 -1.29961926 -3.73747914
-## [22,]  0.61810518  2.733850805  1.48536836 -1.26226436
-## [23,] -1.04096335  1.709002102  0.08671143  1.04590831
-## [24,]  0.18262074 -0.012635395 -0.28562755 -1.42991960
-## [25,]  0.58434765 -0.059961688 -1.54968244 -1.23928874
-## [26,]  0.33979464 -0.766326224 -1.17603228 -1.82339552
-## [27,]  0.31161656 -0.001258033  0.34323655  0.99595579
-## [28,]  0.58341557 -0.694099943 -0.65594988 -0.96093720
-## [29,] -0.72158889 -0.717350047  0.03075959  0.97537304
-## [30,] -0.29319050  0.743638725 -0.55382511  0.25342618
-## [31,]  1.24924124 -1.765012258  0.67002993  0.84424863
-## [32,] -0.52604317 -2.394930717  0.49013781 -0.90091302
-## [33,] -1.97162720  0.474858612  0.46776463 -0.68403202
-## [34,]  1.52820999  1.520412362  1.42966914  1.49018761</code></pre>
+##              [,1]        [,2]       [,3]       [,4]
+##  [1,]  0.76486732  3.44125738  3.7339370 -2.8888381
+##  [2,] -0.73778082 -8.60045903 -3.3203720 -2.8363138
+##  [3,]  4.29547298 -0.36009534  2.6941573 -3.0149211
+##  [4,]  2.18456857 -4.98537750  2.3286105  2.1782329
+##  [5,]  0.59396322  1.11697223  0.5825800  1.4983302
+##  [6,] -1.63653446 -0.92386860 -1.4988349 -0.8222567
+##  [7,]  2.22558051  0.82275170  1.4439232  1.0162270
+##  [8,] -0.31786670  2.02091916  4.8046263 -0.9507920
+##  [9,]  3.27077230 -2.44587326  4.0858552 -0.4650251
+## [10,]  1.99566773  0.54749955 -3.1861331 -1.9059702
+## [11,] -0.87120447 -0.40192781 -1.3321494  0.4772764
+## [12,]  0.50052661 -0.32031618 -3.9899096  2.5766436
+## [13,]  0.62390184 -0.83341587  0.5336018 -1.2159981
+## [14,] -2.85589793  1.25568890  0.6012132  2.2213915
+## [15,]  0.57986763 -0.75087351 -1.5702242 -2.2023996
+## [16,] -0.94534182  0.13791556 -1.5086615  0.8010087
+## [17,] -0.03857506 -6.15691691  0.8327428  2.2647281
+## [18,]  1.82342509  0.80354336  1.6008707 -2.5740698
+## [19,]  1.06658741  1.24462571  0.3843314  1.0424846
+## [20,]  3.62689376  0.22766945 -0.7757762  3.1012363
+## [21,]  2.25029026  0.80165372  1.8867487  1.7119446
+## [22,]  1.74220361 -2.34890673  1.7209389  2.4519458
+## [23,] -0.68573676  1.02734935 -0.2043652  0.7003166
+## [24,] -0.74758766  0.08314062 -0.5800473  0.3396207
+## [25,] -0.11523030  0.80947961 -0.4403020  0.5657516
+## [26,] -1.00784095  0.12989273  0.5638295 -0.7109524
+## [27,] -1.85218055 -2.13147093  0.1634373  1.6415943
+## [28,] -0.10560032  0.57882230 -1.3196482 -0.0604276
+## [29,]  0.04962952 -0.25817752 -0.8406929 -1.1286295
+## [30,]  1.23134170 -1.12542436 -1.8356413  2.2320839
+## [31,] -1.05751286 -1.68922483  0.3061455  1.0904476
+## [32,]  0.59088037  0.95971441  0.1986480  0.5827271
+## [33,]  0.24246156  0.70259174  0.2415890 -0.4407022
+## [34,]  1.07966194  1.60126788 -0.8607430  0.6274530</code></pre>
 <p>This approach is a bit more computationally efficient because the setup calculations (getting <code>N</code>, <code>g</code>, <code>group</code>, <code>mu_full</code>, and <code>sigma_full</code>) only have to be done once instead of once per replication. It also makes clever use of vector recycling in the call to <code>rnorm()</code>. However, the structure of the resulting data is more complicated, which will make it more difficult to do the later estimation steps. Furthermore, if <code>R</code> is large and each replication produces a large dataset, this “all-at-once” approach will entail generating and holding very large amounts of data in memory, which can create other performance issues. On balance, I recommend following the simpler approach of writing a function that generates a single simulated dataset per call (unless and until you have a principled reason to do otherwise).</p>
 </div>
 <div id="checking-the-data-generating-function" class="section level2">
@@ -342,12 +342,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 10000 10000 10000 10000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(check_data, <span class="kw">tapply</span>(x, group, mean)) <span class="co"># calculate means by group</span></code></pre></div>
 <pre><code>##            1            2            3            4 
-## -0.007164546  0.017242693 -0.021191002 -0.015409675</code></pre>
+## -0.042370901 -0.023727523  0.036373658 -0.002048172</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu <span class="co"># compare to mean parameters</span></code></pre></div>
 <pre><code>## [1] 0 0 0 0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(check_data, <span class="kw">tapply</span>(x, group, var)) <span class="co"># calculate variances by group</span></code></pre></div>
-<pre><code>##         1         2         3         4 
-## 9.0725867 4.0402068 4.0300395 0.9752301</code></pre>
+<pre><code>##        1        2        3        4 
+## 8.822076 4.058049 4.027327 1.012325</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigma_sq <span class="co"># compare to variance parameters</span></code></pre></div>
 <pre><code>## [1] 9 4 4 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check normality</span>
@@ -367,8 +367,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }
 
 <span class="kw">r_tss</span>(<span class="dt">n =</span> <span class="dv">8</span>, <span class="dt">mean =</span> <span class="dv">3</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">5</span>)</code></pre></div>
-<pre><code>## [1]  1.15117388 -6.90193701  3.49720420 -0.08530549  1.52312065  3.25928841
-## [7]  3.56521798  9.79833810</code></pre>
+<pre><code>## [1]  1.504787  2.271967  4.622572  2.291272  2.369422 -0.379155  2.485015
+## [8]  2.448134</code></pre>
 <p>Modify that <code>simulate_data</code> function to generate data from shifted-and-scaled t distributions rather than from normal distributions. Include the degrees of freedom as an input argument. Re-run the Type-I error rate calculations from the previous question. Do the results change substantially?</p>
 
 </div>

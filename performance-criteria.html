@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Designing Monte Carlo Simulations in R</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
-  <meta name="generator" content="bookdown 0.4.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Designing Monte Carlo Simulations in R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="James E. Pustejovsky">
 
 
-<meta name="date" content="2017-08-14">
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -418,24 +418,24 @@ r_mvt_items &lt;-<span class="st"> </span><span class="cf">function</span>(n, p,
 
 small_sample &lt;-<span class="st"> </span><span class="kw">r_mvt_items</span>(<span class="dt">n =</span> <span class="dv">8</span>, <span class="dt">p =</span> <span class="dv">3</span>, <span class="dt">icc =</span> <span class="fl">0.7</span>, <span class="dt">df =</span> <span class="dv">5</span>)
 small_sample</code></pre></div>
-<pre><code>##               A           B           C
-## [1,]  1.3981142  2.47724590  2.26178261
-## [2,] -0.3594373 -1.15013582 -0.78688760
-## [3,]  0.4337564 -0.69410553 -0.00493949
-## [4,]  0.2117151 -1.61679568 -1.57647828
-## [5,] -0.7589249  0.07733664 -0.22762051
-## [6,]  1.3854553  1.20900281  0.26674514
-## [7,]  0.6157082  1.32798407  0.66608699
-## [8,]  2.0188581  1.74054692  1.14555264</code></pre>
+<pre><code>##                A          B           C
+## [1,]  0.25083301  0.1464913  0.10553683
+## [2,]  0.10078588 -0.2478199 -0.31257997
+## [3,] -0.06477356 -0.4959787  0.92095484
+## [4,]  2.97552595  1.1585854  2.17694682
+## [5,]  0.63664212 -0.7712058  0.57794704
+## [6,]  1.76182445  1.2307978  1.83414729
+## [7,] -0.13057774 -1.1214898 -0.03541368
+## [8,] -0.33005904  0.1906131  0.13196280</code></pre>
 <p>To check that the function is indeed simulating data following the intended distribution, let’s generate a very large sample of items. We can then verify that the correlation matrix of the items is compound-symmetric and that the marginal distributions of the items follow t distributions with specified degrees of freedom.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">big_sample &lt;-<span class="st"> </span><span class="kw">r_mvt_items</span>(<span class="dt">n =</span> <span class="dv">100000</span>, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">icc =</span> <span class="fl">0.7</span>, <span class="dt">df =</span> <span class="dv">5</span>)
 
 <span class="kw">round</span>(<span class="kw">cor</span>(big_sample), <span class="dv">3</span>) <span class="co"># looks good</span></code></pre></div>
 <pre><code>##       A     B     C     D
-## A 1.000 0.695 0.702 0.698
-## B 0.695 1.000 0.696 0.697
-## C 0.702 0.696 1.000 0.697
-## D 0.698 0.697 0.697 1.000</code></pre>
+## A 1.000 0.705 0.704 0.706
+## B 0.705 1.000 0.702 0.704
+## C 0.704 0.702 1.000 0.705
+## D 0.706 0.704 0.705 1.000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqplot</span>(<span class="kw">qt</span>(<span class="kw">ppoints</span>(<span class="dv">200</span>), <span class="dt">df =</span> <span class="dv">5</span>), big_sample[,<span class="dv">2</span>], <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>))</code></pre></div>
 <p><img src="Designing-Simulations-in-R_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
@@ -454,8 +454,8 @@ small_sample</code></pre></div>
 }
 
 <span class="kw">estimate_alpha</span>(small_sample)</code></pre></div>
-<pre><code>##          A         Var
-## 1 0.906199 0.003299485</code></pre>
+<pre><code>##           A         Var
+## 1 0.9142744 0.002755826</code></pre>
 <p>The <code>psych</code> package provides a function for calculating <span class="math inline">\(\alpha\)</span>, which can be used to verify that the calculation of <span class="math inline">\(A\)</span> in <code>estimate_alpha</code> is correct:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(psych)</code></pre></div>
 <pre><code>## 
@@ -467,8 +467,8 @@ small_sample</code></pre></div>
 <pre><code>## 
 ## Reliability analysis   
 ##  raw_alpha std.alpha G6(smc) average_r S/N   ase mean  sd
-##       0.91      0.92    0.91      0.78  11 0.049 0.42 1.1</code></pre>
-<pre><code>## [1] 0.906199</code></pre>
+##       0.91      0.92     0.9      0.79  12 0.048 0.45 0.9</code></pre>
+<pre><code>## [1] 0.9142744</code></pre>
 </div>
 <div id="replicates" class="section level3">
 <h3><span class="header-section-number">5.7.3</span> Replicates</h3>
@@ -488,13 +488,13 @@ simulate_alpha &lt;-<span class="st"> </span><span class="cf">function</span>(re
 alpha_true &lt;-<span class="st"> </span><span class="fl">0.8</span>
 alpha_reps &lt;-<span class="st"> </span><span class="kw">simulate_alpha</span>(<span class="dt">reps =</span> reps, <span class="dt">n =</span> <span class="dv">40</span>, <span class="dt">p =</span> <span class="dv">6</span>, <span class="dt">alpha =</span> alpha_true, <span class="dt">df =</span> <span class="dv">5</span>)
 <span class="kw">head</span>(alpha_reps)</code></pre></div>
-<pre><code>##           A         Var
-## 1 0.8561990 0.001240724
-## 2 0.8101130 0.002163423
-## 3 0.8501061 0.001348090
-## 4 0.8364654 0.001604614
-## 5 0.8652237 0.001089880
-## 6 0.7649902 0.003313776</code></pre>
+<pre><code>##           A          Var
+## 1 0.8331526 0.0016702826
+## 2 0.8478141 0.0013896333
+## 3 0.8166545 0.0020169335
+## 4 0.7948754 0.0025245661
+## 5 0.7844087 0.0027887765
+## 6 0.8736379 0.0009580435</code></pre>
 </div>
 <div id="estimator-performance" class="section level3">
 <h3><span class="header-section-number">5.7.4</span> Estimator performance</h3>
@@ -511,10 +511,10 @@ alpha_reps &lt;-<span class="st"> </span><span class="kw">simulate_alpha</span>(
 <h3><span class="header-section-number">5.7.5</span> Confidence interval coverage</h3>
 <p>One way to obtain an approximate confidence interval for <span class="math inline">\(\alpha\)</span> would be to take <span class="math inline">\(A \pm z \sqrt{\text{Var}(A)}\)</span>, where <span class="math inline">\(\text{Var}(A)\)</span> is estimated as described above and <span class="math inline">\(z\)</span> is a standard normal critical value at the appropriate level (i.e., <span class="math inline">\(z = 1.96\)</span> for a 95% CI). However, van Zyl, Neudecker, and Nel (2000) suggest that a better approximation involves first applying a transformation to <span class="math inline">\(A\)</span>, then calculating a confidence interval, then back-transforming to the original scale (this is very similar to the procedure for calculating confidence intervals for correlation coefficients, using Fisher’s <span class="math inline">\(z\)</span> transformation). Let</p>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 \beta &amp;= \frac{1}{2} \ln\left(1 - \alpha\right) \\
 B &amp;= \frac{1}{2} \ln\left(1 - A\right)
-\end{align}
+\end{aligned}
 \]</span></p>
 <p>and</p>
 <p><span class="math display">\[
